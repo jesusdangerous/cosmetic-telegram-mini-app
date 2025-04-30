@@ -7,21 +7,21 @@
         <h2>Введите свои данные для регистрации</h2>
       </header>
       <div class="data-user">
-        <form>
-          <label>
-            <Input placeholder="Имя"></Input>
-          </label>
-          <label>
-            <Input placeholder="Номер телефона"></Input>
-          </label>
-        </form>
-        <div class="checkbox">
-          <div>
-            <input type="checkbox" id="true-data">
-            <label for="true-data">Даю согласие на обработку данных</label>
+          <form ref="userForm" method="post" @submit="handleSubmit">
+            <label>
+              <Input placeholder="Имя"></Input>
+            </label>
+            <label>
+              <Input type="phone" placeholder="Номер телефона"></Input>
+            </label>
+          <div class="checkbox">
+            <div>
+              <input type="checkbox" id="true-data">
+              <label for="true-data">Даю согласие на обработку данных</label>
+            </div>
+            <Button router-link='/check-number' text="Получить код"></Button>
           </div>
-          <Button text="Получить код"></Button>
-        </div>
+        </form>
       </div>
     </div>
     <footer>
@@ -40,6 +40,13 @@
   import Button from '@/components/UI/Button.vue';
   import IconButton from '@/components/UI/IconButton.vue';
   import NavButton from '@/components/UI/NavButton.vue';
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(userForm.value);
+    const jsonData = Object.fromEntries(formData.entries());
+    const dataStore = useDataStore();
+  }
 </script>
 
 <style scoped>
