@@ -10,6 +10,7 @@
 
 <style scoped>
 .icon-button {
+  padding: 0px;
   width: max-content;
   display: flex;
   justify-content: center;

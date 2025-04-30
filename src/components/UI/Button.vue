@@ -29,7 +29,6 @@ defineProps({
   button:disabled{
     background-color: rgba(173, 173, 173, 1);
     border: 1px solid #4A4A4A;
-    cursor: auto;
   }
 </style>
 
