@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <button class="skip-button">Пропустить</button>
+    <NavButton text="Пропустить"></NavButton>
     <div class="main">
       <header>
         <h1>Добро пожаловать!</h1>
@@ -39,6 +39,7 @@
   import Input from '@/components/UI/Input.vue';
   import Button from '@/components/UI/Button.vue';
   import IconButton from '@/components/UI/IconButton.vue';
+  import NavButton from '@/components/UI/NavButton.vue';
 </script>
 
 <style scoped>
