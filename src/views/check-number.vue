@@ -7,7 +7,6 @@
       </div>
       <NavButton text="Пропустить"></NavButton>
     </nav>
-
     <div class="check-number">
       <header>
         <h1>Еще немного!</h1>
@@ -22,6 +21,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
