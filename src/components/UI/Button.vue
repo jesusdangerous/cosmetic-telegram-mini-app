@@ -11,7 +11,7 @@ defineProps({
 
 <style scoped>
   button{
-    width: 361px;
+    max-width: 100%;
     height: 52px;
     display: flex;
     justify-content: center;

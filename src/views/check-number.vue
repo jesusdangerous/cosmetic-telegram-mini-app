@@ -33,6 +33,7 @@
 
 <style scoped>
   .page-wrapper {
+    width: 100%;
     min-height: 486px;
     display: flex;
     align-items: center;
@@ -42,8 +43,9 @@
   }
 
   nav {
+    width: 100%;
     display: flex;
-    gap: 190px;
+    justify-content: space-between;
   }
 
   nav div {
@@ -53,6 +55,7 @@
   }
 
   .check-number {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 32px;

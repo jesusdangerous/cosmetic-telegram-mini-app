@@ -14,5 +14,6 @@
     border: none;
     background-color: transparent;
     font-size: 16px;
+    padding: 0;
   }
 </style>
