@@ -1,5 +1,4 @@
 <template>
-  <body>
     <div class="page-wrapper">
     <header>
       <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
@@ -46,20 +45,22 @@
           </div>
         </article>
       </main>
-    </div>
-      <footer>
+
+      <footer class="footer">
         <p>Выйти</p>
         <IconButton><img src="../assets/images/icon-exit.svg"></IconButton>
       </footer>
-  </body>
+      <Footer></Footer>
+    </div>
 </template>
 
 <script setup>
   import IconButton from '@/components/UI/IconButton.vue';
+  import Footer from '@/components/Footer.vue';
 </script>
 
 <style scoped>
-  footer {
+  .footer {
     margin-top: 56px;
     display: flex;
     justify-content: space-between;

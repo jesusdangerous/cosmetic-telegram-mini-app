@@ -15,11 +15,16 @@ import IconButton from './UI/IconButton.vue';
 </script>
 
 <style scoped>
+  footer {
+    width: 93%;
+    position: fixed;
+    bottom: 30px;
+    padding: 0;
+  }
+
   nav {
-    width: 361px;
     display: flex;
-    justify-content: center;
-    gap: 16px;
+    justify-content: space-between;
     border-radius:32px;
     background-color: rgba(251, 251, 251, 0.64);
   }

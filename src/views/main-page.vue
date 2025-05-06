@@ -108,13 +108,14 @@
           </ul>
         </article>
       </main>
+      <Footer></Footer>
     </body>
 </template>
 
 <script setup>
   import IconButton from '@/components/UI/IconButton.vue';
   import Input from '@/components/UI/Input.vue';
-
+  import Footer from '@/components/Footer.vue';
 </script>
 
 <style scoped>
