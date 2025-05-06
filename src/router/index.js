@@ -3,6 +3,7 @@ import Main from '@/views/main.vue'
 import Registration from '@/views/registration.vue'
 import CheckNumber from '@/views/check-number.vue'
 import MainPage from '@/views/main-page.vue'
+import AccountUser from '@/views/account-user.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/main-page',
       name: 'main',
       component: MainPage,
+    },
+    {
+      path: '/account-user',
+      name: 'account',
+      component: AccountUser,
     }
   ],
 })
