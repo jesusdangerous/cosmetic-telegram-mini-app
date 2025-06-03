@@ -5,6 +5,7 @@ import CheckNumber from '@/views/check-number.vue'
 import MainPage from '@/views/main-page.vue'
 import Support from '@/views/support.vue'
 import UserAccount from '@/views/user-account.vue'
+import Warning from '@/views/warning.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/support',
       name: 'support',
       component: Support
+    },
+    {
+      path: '/warning',
+      name: 'warning',
+      component: Warning,
     }
   ],
 })
