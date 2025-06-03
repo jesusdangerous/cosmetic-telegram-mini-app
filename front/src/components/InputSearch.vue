@@ -1,17 +1,22 @@
 <template>
   <div>
     <label>
-      <img class="icon-search" src="../assets/images/icon-search.svg"
-      alt="иконка лупы">
-      <Input placeholder="Поиск"></Input>
+      <img class="icon-search" src="../assets/images/icon-search.svg" alt="иконка лупы">
+      <Input :placeholder="placeholder"></Input>
     </label>
-    <IconButton><img src="../assets/images/icon-parameters.svg"></IconButton>
   </div>
 </template>
 
 <script setup>
-  import Input from './UI/Input.vue';
-  import IconButton from './UI/IconButton.vue';
+import Input from './UI/Input.vue';
+import IconButton from './UI/IconButton.vue';
+
+const props = defineProps({
+  placeholder: {
+    type: String,
+    default: "Поиск" // Значение по умолчанию, если не передано
+  }
+});
 </script>
 
 <style scoped>
@@ -22,10 +27,11 @@
 
   input {
     padding: 0;
+    min-width: 93%;
   }
 
   label {
-    min-width: 89%;
+    max-width: 100%;
     display: flex;
     background-color: #FBFBFB;
     border-radius: 12px;

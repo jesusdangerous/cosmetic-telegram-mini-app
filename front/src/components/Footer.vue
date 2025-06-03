@@ -16,11 +16,14 @@ import IconButton from './UI/IconButton.vue';
 
 <style scoped>
   footer {
-    width: 93%;
-    position: fixed;
-    bottom: 30px;
-    padding: 0;
-  }
+  width: 93%;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+}
+
 
   nav {
     display: flex;
