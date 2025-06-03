@@ -5,7 +5,8 @@ import CheckNumber from '@/views/check-number.vue'
 import MainPage from '@/views/main-page.vue'
 import Support from '@/views/support.vue'
 import UserAccount from '@/views/user-account.vue'
-import Warning from '@/views/warning.vue'
+import WarningAccount from '@/views/warning-account.vue'
+import WarningFavourites from '@/views/warning-favourites.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,9 +42,14 @@ const router = createRouter({
       component: Support
     },
     {
-      path: '/warning',
-      name: 'warning',
-      component: Warning,
+      path: '/warning-account',
+      name: 'warningAccount',
+      component: WarningAccount,
+    },
+    {
+      path: '/warning-favourites',
+      name: "warningFavourites",
+      component: WarningFavourites
     }
   ],
 })

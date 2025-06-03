@@ -4,5 +4,6 @@
   <router-link to="/main-page"></router-link>
   <router-link to="/user-account"></router-link>
   <router-link to="/support"></router-link>
-  <router-link to="/warning"></router-link>
+  <router-link to="/warning-account"></router-link>
+  <router-link to="/warning-favourites"></router-link>
 </template>
