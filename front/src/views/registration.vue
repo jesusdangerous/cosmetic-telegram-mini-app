@@ -41,12 +41,6 @@
   import IconButton from '@/components/UI/IconButton.vue';
   import NavButton from '@/components/UI/NavButton.vue';
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(userForm.value);
-    const jsonData = Object.fromEntries(formData.entries());
-    const dataStore = useDataStore();
-  }
 </script>
 
 <style scoped>
