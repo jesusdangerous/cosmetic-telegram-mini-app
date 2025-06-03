@@ -3,8 +3,7 @@ import Main from '@/views/main.vue'
 import Registration from '@/views/registration.vue'
 import CheckNumber from '@/views/check-number.vue'
 import MainPage from '@/views/main-page.vue'
-
-import userAccount from '@/views/user-account.vue'
+import Support from '@/views/support.vue'
 import UserAccount from '@/views/user-account.vue'
 
 const router = createRouter({
@@ -34,6 +33,11 @@ const router = createRouter({
       path: '/user-account',
       name: 'account',
       component: UserAccount,
+    },
+    {
+      path: '/support',
+      name: 'support',
+      component: Support
     }
   ],
 })

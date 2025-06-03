@@ -3,4 +3,5 @@
   <router-link to="/check-number"></router-link>
   <router-link to="/main-page"></router-link>
   <router-link to="/user-account"></router-link>
+  <router-link to="/support"></router-link>
 </template>
