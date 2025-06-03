@@ -16,7 +16,7 @@ import IconButton from './UI/IconButton.vue';
 
 <style scoped>
   footer {
-  width: 93%;
+  width: 93vw;
   position: fixed;
   bottom: 30px;
   left: 50%;

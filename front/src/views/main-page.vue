@@ -135,7 +135,7 @@ import Footer from '@/components/Footer.vue';
 
 <style scoped>
 .page-wrapper {
-  max-width: 100%;
+  width: 92%;
   padding: 20px 15px 160px;
   background-image: url("../assets/images/background-main.png");
   background-size: cover;
@@ -205,10 +205,10 @@ main h1 {
 }
 
 .actions {
+  width: 92%;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 92%;
 }
 
 .action_check-product {
@@ -218,6 +218,7 @@ main h1 {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding: 8px;
 }
 
 .action_check-product p {
@@ -235,7 +236,6 @@ main h1 {
 .action_other {
   display: flex;
   gap: 16px;
-  width: 92%;
 }
 
 .action_other-compare,
@@ -286,7 +286,6 @@ main h1 {
 }
 
 .experts {
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -345,7 +344,7 @@ main h1 {
   padding: 4px 0;
 
   text-align: center;
-  width: 53%;
+  width: 55%;
   margin: 0;
 }
 
@@ -372,7 +371,6 @@ main h1 {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 92%;
 }
 
 .safety-cosmetic a {

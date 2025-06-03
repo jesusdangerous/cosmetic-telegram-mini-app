@@ -1,6 +1,7 @@
 @import './base.css';
 
 body{
+  width: 100%;
   margin: 0 auto;
   background-color: rgb(244,244,252);
 }
