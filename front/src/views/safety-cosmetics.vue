@@ -7,7 +7,7 @@
       <h1>Безопасная косметика</h1>
     </header>
     <main>
-      <InputSearch width="130%" />
+      <InputSearch width="100%" />
       <div class="category">
         <ButtonCategory :categories="categories" v-model="selectedCategory" />
       </div>

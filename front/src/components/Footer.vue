@@ -1,17 +1,16 @@
 <template>
   <footer>
     <nav>
-      <IconButton><img src="../assets/images/icon-home.svg"></IconButton>
-      <IconButton><img src="../assets/images/icon-comment.svg"></IconButton>
-      <IconButton><img src="../assets/images/icon-scan.svg"></IconButton>
-      <IconButton><img src="../assets/images/icon-like.svg"></IconButton>
-      <IconButton><img src="../assets/images/icon-profile.svg"></IconButton>
+      <a href="/main-page"><img src="../assets/images/icon-home.svg"></a>
+      <a href="#"><img src="../assets/images/icon-comment.svg"></a>
+      <a href="#"><img src="../assets/images/icon-scan.svg"></a>
+      <a href="/favourites"><img src="../assets/images/icon-like.svg"></a>
+      <a href="/user-account"><img src="../assets/images/icon-profile.svg"></a>
     </nav>
   </footer>
 </template>
 
 <script setup>
-import IconButton from './UI/IconButton.vue';
 </script>
 
 <style scoped>
@@ -23,7 +22,6 @@ import IconButton from './UI/IconButton.vue';
   transform: translateX(-50%);
   padding: 0;
 }
-
 
   nav {
     display: flex;

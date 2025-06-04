@@ -9,6 +9,7 @@ import WarningAccount from '@/views/warning-account.vue'
 import WarningFavourites from '@/views/warning-favourites.vue'
 import Favourites from '@/views/favourites.vue'
 import SafetyCosmetics from '@/views/safety-cosmetics.vue'
+import Experts from '@/views/experts.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,6 +63,11 @@ const router = createRouter({
       path: '/safety-cosmetics',
       name: 'safetyCosmetics',
       component: SafetyCosmetics
+    },
+    {
+      path: '/experts',
+      name: 'experts',
+      component: Experts,
     }
   ],
 })

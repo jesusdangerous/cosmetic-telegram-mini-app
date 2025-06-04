@@ -8,4 +8,6 @@
   <router-link to="/warning-favourites"></router-link>
   <router-link to="/favourites"></router-link>
   <router-link to="/safety-cosmetics"></router-link>
+  <router-link to="/experts"></router-link>
+
 </template>
