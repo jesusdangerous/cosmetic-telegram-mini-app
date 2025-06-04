@@ -7,4 +7,5 @@
   <router-link to="/warning-account"></router-link>
   <router-link to="/warning-favourites"></router-link>
   <router-link to="/favourites"></router-link>
+  <router-link to="/safety-cosmetics"></router-link>
 </template>

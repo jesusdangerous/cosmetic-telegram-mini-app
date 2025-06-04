@@ -8,6 +8,7 @@ import UserAccount from '@/views/user-account.vue'
 import WarningAccount from '@/views/warning-account.vue'
 import WarningFavourites from '@/views/warning-favourites.vue'
 import Favourites from '@/views/favourites.vue'
+import SafetyCosmetics from '@/views/safety-cosmetics.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       path: '/favourites',
       name: 'favourites',
       component: Favourites,
+    },
+    {
+      path: '/safety-cosmetics',
+      name: 'safetyCosmetics',
+      component: SafetyCosmetics
     }
   ],
 })

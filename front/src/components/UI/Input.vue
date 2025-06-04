@@ -1,13 +1,22 @@
+<!-- Input.vue -->
 <template>
   <input
-  type="text"
-  :value="modelValue"
-  @input="$emit('update:modelValue', $event.target.value)">
+    type="text"
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event.target.value)"
+    :style="inputStyle"
+  />
 </template>
 
 <script setup>
-defineProps(['modelValue'])
-defineEmits(['update:modelValue'])
+import { computed } from 'vue'
+
+const props = defineProps({
+  modelValue: String,
+  inputStyle: Object // принимаем стиль
+})
+
+const emit = defineEmits(['update:modelValue'])
 </script>
 
 <style scoped>
@@ -19,5 +28,6 @@ input {
   font-size: 20px;
   outline: none;
   border: none;
+  width: 100%; /* чтобы стиль ширины работал корректно */
 }
 </style>

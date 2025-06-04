@@ -27,7 +27,7 @@ import CardMax from '@/components/CardMax.vue';
 import Footer from '@/components/Footer.vue'
 // Импорт картинок
 import photoProduct from '../assets/images/photo-product.png';
-import photoProduct2 from '../assets/images/photo-product-2.jpg'
+import photoProduct2 from '../assets/images/photo-product-2.png'
 const products = [
   {
     name: 'Крем для лица',

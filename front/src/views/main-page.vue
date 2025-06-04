@@ -105,20 +105,14 @@
           </IconButton>
         </div>
         <ul>
-          <li>
-            <IconButton>
-              <img src="../assets/images/icon-like.svg" alt="Иконка лайка" />
-            </IconButton>
-            <div class="cosmetics-info">
-              <div class="cosmetics-info_photo"></div>
-              <div class="cosmetics-info_text">
-                <span>Крем для лица</span>
-                <p>The Act с витамином C</p>
-                <div class="cosmetics-info_safety">
-                  <p>Безопасность: 89%</p>
-                </div>
-              </div>
-            </div>
+          <li v-for="(product, index) in products" :key="index">
+            <CardMini
+              :image="product.image"
+              :alt="product.alt"
+              :title="product.title"
+              :brand="product.brand"
+              :description="product.description"
+            />
           </li>
         </ul>
       </article>
@@ -131,6 +125,18 @@
 import IconButton from '@/components/UI/IconButton.vue';
 import InputSearch from '@/components/InputSearch.vue';
 import Footer from '@/components/Footer.vue';
+import CardMini from '@/components/CardMini.vue';
+import photoProduct from '@/assets/images/photo-product.svg'
+import { ref } from 'vue'
+const products = ref([
+  {
+    image: photoProduct,
+    alt: 'Крем для рук и тела LABORATORIUM Вишневый пирог',
+    title: 'Крем для рук и тела',
+    brand: 'LABORATORIUM',
+    description: 'Вишневый пирог',
+  },
+])
 </script>
 
 <style scoped>
@@ -397,18 +403,21 @@ main h1 {
 
 .memory ul {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .memory ul li {
   background-color: rgba(251, 251, 251, 1);
   border-radius: 12px;
-  width: 53%;
   padding: 12px;
   display: flex;
   gap: 16px;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .cosmetics-info {
