@@ -1,7 +1,7 @@
 <template>
-  <button class="icon-button">
+  <a href="#" class="icon-button">
     <slot></slot>
-  </button>
+  </a>
 </template>
 
 <script setup>

@@ -57,7 +57,6 @@ const props = defineProps({
   border-radius: 8px;
   padding: 12px 12px 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  width: 45%;
 }
 
 .product-image img {
@@ -87,7 +86,6 @@ const props = defineProps({
 
 button {
   height: 36px;
-
 }
 
 </style>

@@ -10,6 +10,8 @@ import WarningFavourites from '@/views/warning-favourites.vue'
 import Favourites from '@/views/favourites.vue'
 import SafetyCosmetics from '@/views/safety-cosmetics.vue'
 import Experts from '@/views/experts.vue'
+import Expert from '@/views/expert.vue'
+import Chats from '@/views/chats.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +70,16 @@ const router = createRouter({
       path: '/experts',
       name: 'experts',
       component: Experts,
+    },
+    {
+      path: '/expert',
+      name: 'expert',
+      component: Expert
+    },
+    {
+      path: '/chats',
+      name: 'chats',
+      component: Chats,
     }
   ],
 })

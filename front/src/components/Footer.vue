@@ -2,7 +2,7 @@
   <footer>
     <nav>
       <a href="/main-page"><img src="../assets/images/icon-home.svg"></a>
-      <a href="#"><img src="../assets/images/icon-comment.svg"></a>
+      <a href="/experts"><img src="../assets/images/icon-comment.svg"></a>
       <a href="#"><img src="../assets/images/icon-scan.svg"></a>
       <a href="/favourites"><img src="../assets/images/icon-like.svg"></a>
       <a href="/user-account"><img src="../assets/images/icon-profile.svg"></a>

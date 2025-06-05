@@ -9,5 +9,6 @@
   <router-link to="/favourites"></router-link>
   <router-link to="/safety-cosmetics"></router-link>
   <router-link to="/experts"></router-link>
-
+  <router-link to="/expert"></router-link>
+  <router-link to="/chats"></router-link>
 </template>

@@ -21,11 +21,10 @@
 
     <main>
       <h1>Позаботься о своей коже уже сегодня!</h1>
-
       <article class="actions">
         <div class="action_check-product">
           <p>Проверить средство</p>
-          <IconButton>
+          <IconButton class="icon-arrow">
             <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>
@@ -33,7 +32,7 @@
         <div class="action_other">
           <div class="action_other-compare">
             <p>Сравнить составы</p>
-            <IconButton>
+            <IconButton class="icon-arrow">
               <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
             </IconButton>
           </div>
@@ -41,14 +40,14 @@
           <div class="action_other-group">
             <div class="action_other-card">
               <p>Консультация у эксперта</p>
-              <IconButton>
+              <IconButton class="icon-arrow">
                 <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
             </div>
 
             <div class="action_other-card">
               <p>Избранное</p>
-              <IconButton>
+              <IconButton class="icon-arrow">
                 <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
             </div>
@@ -217,6 +216,10 @@ main h1 {
   gap: 16px;
 }
 
+.action_check-product img {
+  background-color: white;
+  transform: rotate(180deg);
+}
 .action_check-product {
   background-color: rgba(251, 251, 251, 1);
   border-radius: 16px;
@@ -242,6 +245,17 @@ main h1 {
 .action_other {
   display: flex;
   gap: 16px;
+}
+
+.action_other img {
+  background-color: white;
+  padding: 9px 13px;
+  border-radius: 50%;
+}
+
+.icon-button {
+  display: flex;
+  align-items: flex-end;
 }
 
 .action_other-compare,
@@ -411,13 +425,13 @@ main h1 {
 }
 
 .memory ul li {
-  background-color: rgba(251, 251, 251, 1);
   border-radius: 12px;
   padding: 12px;
   display: flex;
   gap: 16px;
   align-items: center;
   box-sizing: border-box;
+  width: 53% !important;
 }
 
 .cosmetics-info {
