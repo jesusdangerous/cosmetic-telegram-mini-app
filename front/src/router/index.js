@@ -15,6 +15,8 @@ import Chats from '@/views/chats.vue'
 import Analysis from '@/views/analysis.vue'
 import AnalysisText from '@/views/analysis-text.vue'
 import AnalysisScan from '@/views/analysis-scan.vue'
+import AnalysisResult from '@/views/analysis-result.vue'
+import AnalysisCompare from '@/views/analysis-compare.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -98,6 +100,16 @@ const router = createRouter({
       path: '/analysis-scan',
       name: 'analysisScan',
       component: AnalysisScan,
+    },
+    {
+      path: '/analysis-result',
+      name: 'analysisResult',
+      component: AnalysisResult,
+    },
+    {
+      path: '/analysis-compare',
+      name: 'ananlysisCompare',
+      component: AnalysisCompare,
     }
   ],
 })

@@ -20,7 +20,7 @@
         </div>
       </div>
       <div>
-        <a href="#">
+        <a href="/analysis-result">
           <p>Анализ состава</p>
         </a>
       </div>

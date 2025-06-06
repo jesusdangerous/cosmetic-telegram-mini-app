@@ -191,7 +191,7 @@ header {
 
 .search {
   display: flex;
-  justify-content: space-between;
+  gap: 4px;
   align-items: center;
   width: 100%;
 }

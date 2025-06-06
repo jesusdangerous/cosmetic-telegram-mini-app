@@ -20,6 +20,7 @@
           />
       </div>
     </main>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -29,6 +30,7 @@ import InputSearch from '@/components/InputSearch.vue';
 import { ref } from 'vue'
 import ExpertCard from '@/components/ExpertCard.vue'
 import photoExpert from '@/assets/images/expert-1.jpg'
+import Footer from '@/components/Footer.vue';
 
 const selectedExpert = ref({
   name: 'Дмитрий',
