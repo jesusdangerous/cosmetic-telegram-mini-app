@@ -11,4 +11,7 @@
   <router-link to="/experts"></router-link>
   <router-link to="/expert"></router-link>
   <router-link to="/chats"></router-link>
+  <router-link to="/analysis"></router-link>
+  <router-link to="/analysis-text"></router-link>
+  <router-link to="/analysis-scan"></router-link>
 </template>
