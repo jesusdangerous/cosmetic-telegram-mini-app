@@ -17,6 +17,7 @@ import AnalysisText from '@/views/analysis-text.vue'
 import AnalysisScan from '@/views/analysis-scan.vue'
 import AnalysisResult from '@/views/analysis-result.vue'
 import AnalysisCompare from '@/views/analysis-compare.vue'
+import Reviews from '@/views/reviews.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -110,6 +111,11 @@ const router = createRouter({
       path: '/analysis-compare',
       name: 'ananlysisCompare',
       component: AnalysisCompare,
+    },
+    {
+      path: '/reviews',
+      name : 'reviews',
+      component: Reviews,
     }
   ],
 })
