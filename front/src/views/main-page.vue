@@ -6,7 +6,7 @@
           <img src="../assets/images/photo-user.svg" alt="Фото пользователя" />
         </div>
         <div class="welcome_hi">
-          <h2>Привет, Дарья!</h2>
+          <h2>Привет, Алина!</h2>
           <h3>С любовью к деталям</h3>
         </div>
       </div>

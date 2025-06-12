@@ -11,8 +11,8 @@
             <div>
               <img src="../assets/images/photo-user.svg">
               <div>
-                <h2>Дарья</h2>
-                <p>+7 982 912 87 35</p>
+                <h2>Арина</h2>
+                <p>+7 977 324 8982</p>
               </div>
             </div>
             <button>Изменить</button>
