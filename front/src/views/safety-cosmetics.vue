@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton>
+      <IconButton href="main-page">
         <img src="../assets/images/arrow-back.svg" />
       </IconButton>
       <h1>Безопасная косметика</h1>

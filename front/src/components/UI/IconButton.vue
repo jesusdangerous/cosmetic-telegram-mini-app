@@ -1,11 +1,16 @@
 <template>
-  <a href="#" class="icon-button">
+  <a :href="href" class="icon-button">
     <slot></slot>
   </a>
 </template>
 
 <script setup>
-
+const props = defineProps({
+  href: {
+    type: String,
+    default: '#',
+  },
+})
 </script>
 
 <style scoped>

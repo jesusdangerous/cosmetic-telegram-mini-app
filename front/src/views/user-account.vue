@@ -2,7 +2,7 @@
   <body>
     <div class="page-wrapper">
     <header>
-      <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton href="/main-page"><img src="../assets/images/arrow-back.svg"></IconButton>
       <h1>Личный кабинет</h1>
     </header>
       <main>

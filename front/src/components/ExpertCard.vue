@@ -1,5 +1,5 @@
 <template>
-  <div class="expert-card">
+  <a href="/expert" class="expert-card">
     <div class="expert-card__header">
       <div>
         <h3 class="expert-card__position">{{ expert.position }}</h3>
@@ -21,11 +21,11 @@
       </p>
     </div>
     <div class="card-button">
-      <button class="expert-card__button" @click="emit('consult')">
+      <a href="/chats"class="expert-card__button">
         Получить консультацию
-      </button>
+      </a>
     </div>
-  </div>
+  </a>
 </template>
 
 
@@ -44,7 +44,6 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['consult'])
 </script>
 
 <style scoped>
@@ -110,7 +109,6 @@ h2 {
   border: none;
   padding: 8px 12px;
   border-radius: 12px;
-  width: 68%;
 }
 
 .card-button {

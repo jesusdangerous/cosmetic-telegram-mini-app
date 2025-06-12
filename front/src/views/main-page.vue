@@ -24,7 +24,7 @@
       <article class="actions">
         <div class="action_check-product">
           <p>Проверить средство</p>
-          <IconButton class="icon-arrow">
+          <IconButton href="/analysis" class="icon-arrow">
             <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>
@@ -32,7 +32,7 @@
         <div class="action_other">
           <div class="action_other-compare">
             <p>Сравнить составы</p>
-            <IconButton class="icon-arrow">
+            <IconButton href="/analysis-compare" class="icon-arrow">
               <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
             </IconButton>
           </div>
@@ -40,14 +40,14 @@
           <div class="action_other-group">
             <div class="action_other-card">
               <p>Консультация у эксперта</p>
-              <IconButton class="icon-arrow">
+              <IconButton href="/chats" class="icon-arrow">
                 <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
             </div>
 
             <div class="action_other-card">
               <p>Избранное</p>
-              <IconButton class="icon-arrow">
+              <IconButton href="/favourites" class="icon-arrow">  <!--страницы очень похожи-->
                 <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
             </div>
@@ -58,7 +58,7 @@
       <article class="experts">
         <div class="block_header">
           <h2>Наши эксперты</h2>
-          <IconButton>
+          <IconButton href="/experts">
             <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>
@@ -78,7 +78,7 @@
       <article class="safety">
         <div class="block_header">
           <h2>Безопасная косметика</h2>
-          <IconButton>
+          <IconButton href="/safety-cosmetics">
             <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>
@@ -99,7 +99,7 @@
       <article class="memory">
         <div class="block_header">
           <h2>Вы проверяли</h2>
-          <IconButton>
+          <IconButton href="/favourites">  <!--страницы очень похожи-->
             <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>

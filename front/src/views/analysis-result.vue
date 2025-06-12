@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton href="/analysis"><img src="../assets/images/arrow-back.svg"></IconButton>
       <h1>Результаты анализа</h1>
     </header>
     <main>
@@ -102,7 +102,7 @@
         <div class="reviews">
           <div class="reviews-header">
             <h2>Отзывы</h2>
-            <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
+            <IconButton href="/reviews"><img src="../assets/images/arrow-back.svg"></IconButton>
           </div>
           <div class="reviews-info">
             <div>
@@ -128,7 +128,7 @@
         </div>
         <div class="buttons">
           <a href="/experts" class="buttons-item buttons__consult">Консультация у эксперта</a>
-          <a href="main-page" class="buttons-item buttons__main">На главную</a>
+          <a href="/main-page" class="buttons-item buttons__main">На главную</a>
         </div>
       </div>
     </main>

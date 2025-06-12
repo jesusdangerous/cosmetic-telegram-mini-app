@@ -4,19 +4,34 @@ body{
   width: 100%;
   margin: 0 auto;
   background-color: rgb(244,244,252);
+  font-family: 'SF Pro Text', -apple-system, sans-serif;
 }
 
 .page-wrapper {
   width: 100%;
   margin: 0 auto;
+  font-family: 'SF Pro Text', -apple-system, sans-serif;
 }
 
 h1, h2, h3, h4, p {
   margin: 0;
   padding: 0;
+  font-family: 'SF Pro Text', -apple-system, sans-serif;
 }
 
 a {
   color: black;
   text-decoration: none;
+  font-family: 'SF Pro Text', -apple-system, sans-serif;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 3px solid red;
 }

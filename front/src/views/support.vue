@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton href="user-account"><img src="../assets/images/arrow-back.svg"></IconButton>
       <h1>Справка и поддержка</h1>
     </header>
     <main>
