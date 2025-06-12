@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton href="/experts"><img src="../assets/images/arrow-back.svg"></IconButton>
       <h1>Эксперт</h1>
     </header>
     <main>
@@ -41,7 +41,7 @@
         </ul>
       </div>
       <div class="expert-consult">
-        <Button text="Получить консультацию"></Button>
+        <a href="/chats" class="consult">Получить консультацию</a>
       </div>
       <div class="expert-other">
         <p>Найти другого специалиста</p>
@@ -60,9 +60,16 @@
 </script>
 
 <style scoped>
+  .consult {
+    background-color: black;
+    color: white;
+    padding: 16px 82px;
+    display: flex;
+    border-radius: 12px;
+  }
   .page-wrapper {
     width: 92%;
-    padding: 20px 0;
+    padding: 20px 0 400px;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -178,6 +185,7 @@
     display: flex;
     justify-content: space-between;
     display: none;
+    width: 100%;
   }
 
   .expert-other img {
