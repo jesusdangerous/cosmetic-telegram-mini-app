@@ -42,7 +42,7 @@
           </div>
           <div class="help">
             <p>Справка и поддержка</p>
-            <IconButton><img class="arrow" src="../assets/images/arrow-back.svg"></IconButton>
+            <IconButton href="/support"><img class="arrow" src="../assets/images/arrow-back.svg"></IconButton>
           </div>
           <div class="exit">
             <p>Выйти</p>
