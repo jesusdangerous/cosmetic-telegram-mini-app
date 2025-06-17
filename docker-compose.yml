@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MAIL_NAME=${MAIL_NAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/cosmeticguardian
+      - DEEPSEEK_KEY=${DEEPSEEK_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://backend:8080
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=development
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=cosmeticguardian
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
