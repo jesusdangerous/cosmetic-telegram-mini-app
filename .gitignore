@@ -64,3 +64,5 @@ coverage
 *.tsbuildinfo
 
 /bot/.env
+/.venv/
+/.env
