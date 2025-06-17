@@ -12,7 +12,7 @@
               <Input placeholder="Имя"></Input>
             </label>
             <label>
-              <Input type="phone" placeholder="Номер телефона"></Input>
+              <Input type="email" placeholder="Почта"></Input>
             </label>
           <div class="checkbox">
             <div>
@@ -119,7 +119,4 @@
     display: flex;
     gap: 16px;
   }
-
-
 </style>
-
