@@ -1,16 +1,23 @@
 import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
-
 import { defineConfig } from 'vite';
 
 export default defineConfig({
   server: {
-    port: parseInt(process.env.PORT) || 3000,
+    port: 3000,
     host: true,
+    proxy: {
+      '/api': {
+        target: 'http://backend:8080',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
   preview: {
-    port: parseInt(process.env.PORT) || 3000,
+    port: isNaN(parseInt(process.env.PORT)) ? 3000 : parseInt(process.env.PORT),
+    host: true,
     allowedHosts: ['cosmetic-telegram-mini-app.onrender.com']
   },
   resolve: {
@@ -18,9 +25,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  plugins: [vue()], // Добавьте плагин здесь
-  server: {
-    port: 3000,
-    host: true
-  }
+  plugins: [vue()],
 });

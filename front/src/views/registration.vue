@@ -1,46 +1,80 @@
 <template>
   <div class="page-wrapper">
-    <NavButton text="Пропустить"></NavButton>
+    <a href="/main-page"><NavButton text="Пропустить"></NavButton></a>
     <div class="main">
       <header>
         <h1>Добро пожаловать!</h1>
         <h2>Введите свои данные для регистрации</h2>
       </header>
       <div class="data-user">
-          <form ref="userForm" method="post" @submit="handleSubmit">
-            <label>
-              <Input placeholder="Имя"></Input>
-            </label>
-            <label>
-              <Input type="phone" placeholder="Номер телефона"></Input>
-            </label>
+        <form ref="userForm" method="post" @submit="handleSubmit">
+          <label>
+            <Input v-model="name" placeholder="Имя"></Input>
+          </label>
+          <label>
+            <Input v-model="email" type="email" placeholder="Почта"></Input>
+          </label>
           <div class="checkbox">
             <div>
-              <input type="checkbox" id="true-data">
+              <input v-model="consent" type="checkbox" id="true-data">
               <label for="true-data">Даю согласие на обработку данных</label>
             </div>
-            <Button router-link='/check-number' text="Получить код"></Button>
+            <Button type="submit" text="Получить код"></Button>
           </div>
         </form>
       </div>
     </div>
     <footer>
-      <p>Или войти через</p>
       <div>
-        <IconButton><img src="../assets/images/icon-google.svg"></IconButton>
-        <IconButton><img src="../assets/images/icon-apple.svg"></IconButton>
-        <IconButton><img src="../assets/images/icon-wk.svg"></IconButton>
       </div>
     </footer>
   </div>
 </template>
 
 <script setup>
+  import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
   import Input from '@/components/UI/Input.vue';
   import Button from '@/components/UI/Button.vue';
   import IconButton from '@/components/UI/IconButton.vue';
   import NavButton from '@/components/UI/NavButton.vue';
 
+  const router = useRouter();
+  const name = ref('');
+  const email = ref('');
+  const consent = ref(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:8080/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name.value,
+          email: email.value,
+          dataProcessingConsent: consent.value
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        router.push({
+          path: '/check-number',
+          query: { email: email.value }
+        });
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      alert('Registration failed. Please try again.');
+    }
+  };
 </script>
 
 <style scoped>
@@ -119,7 +153,4 @@
     display: flex;
     gap: 16px;
   }
-
-
 </style>
-
