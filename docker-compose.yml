@@ -13,6 +13,7 @@ services:
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/cosmeticguardian
       - DEEPSEEK_KEY=${DEEPSEEK_KEY}
+      - MAIL_ADMIN=${MAIL_ADMIN}
     depends_on:
       db:
         condition: service_healthy
