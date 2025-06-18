@@ -114,7 +114,6 @@
         })
       });
 
-      // Обработка не-JSON ответов
       const contentType = response.headers.get('content-type');
       let data;
 
