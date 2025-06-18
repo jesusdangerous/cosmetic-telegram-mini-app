@@ -7,6 +7,13 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
+    proxy: {
+      '/api': {
+        target: 'http://backend:8080',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
   preview: {
     port: isNaN(parseInt(process.env.PORT)) ? 3000 : parseInt(process.env.PORT),
