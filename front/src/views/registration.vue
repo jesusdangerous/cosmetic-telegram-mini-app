@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <NavButton text="Пропустить"></NavButton>
+    <a href="/main-page"><NavButton text="Пропустить"></NavButton></a>
     <div class="main">
       <header>
         <h1>Добро пожаловать!</h1>
@@ -25,11 +25,7 @@
       </div>
     </div>
     <footer>
-      <p>Или войти через</p>
       <div>
-        <IconButton><img src="../assets/images/icon-google.svg"></IconButton>
-        <IconButton><img src="../assets/images/icon-apple.svg"></IconButton>
-        <IconButton><img src="../assets/images/icon-wk.svg"></IconButton>
       </div>
     </footer>
   </div>

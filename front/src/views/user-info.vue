@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <nav>
-      <a href="/meet">Пропустить</a>
+      <a href="/main-page">Пропустить</a>
     </nav>
     <header>
       <h1>Расскажите нам немного о себе</h1>
