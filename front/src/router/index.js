@@ -10,7 +10,7 @@ import WarningFavourites from '@/views/warning-favourites.vue'
 import Favourites from '@/views/favourites.vue'
 import SafetyCosmetics from '@/views/safety-cosmetics.vue'
 import Experts from '@/views/experts.vue'
-import Expert from '@/views/expert.vue'
+import Expert from '@/views/expert1.vue'
 import Chats from '@/views/chats.vue'
 import Analysis from '@/views/analysis.vue'
 import AnalysisText from '@/views/analysis-text.vue'
@@ -18,7 +18,11 @@ import AnalysisScan from '@/views/analysis-scan.vue'
 import AnalysisResult from '@/views/analysis-result.vue'
 import AnalysisCompare from '@/views/analysis-compare.vue'
 import Reviews from '@/views/reviews.vue'
-
+import Expert1 from '@/views/expert1.vue'
+import Expert2 from '@/views/expert2.vue'
+import Expert3 from '@/views/expert3.vue'
+import Expert4 from '@/views/expert4.vue'
+import Expert5 from '@/views/expert5.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -29,7 +33,7 @@ const router = createRouter({
     },
     {
       path: '/registration',
-      name: 'registartion',
+      name: 'registration',
       component: Registration,
     },
     {
@@ -116,6 +120,31 @@ const router = createRouter({
       path: '/reviews',
       name : 'reviews',
       component: Reviews,
+    },
+    {
+      path: '/expert1',
+      name: 'expert1',
+      component: Expert1
+    },
+    {
+      path: '/expert2',
+      name: 'expert2',
+      component: Expert2
+    },
+    {
+      path: '/expert3',
+      name: 'expert3',
+      component: Expert3
+    },
+    {
+      path: '/expert4',
+      name: 'expert4',
+      component: Expert4
+    },
+    {
+      path: '/expert5',
+      name: 'expert5',
+      component: Expert5
     }
   ],
 })
