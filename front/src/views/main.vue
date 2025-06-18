@@ -17,4 +17,6 @@
   <router-link to="/analysis-result"></router-link>
   <router-link to="/analysis-compare"></router-link>
   <router-link to="/reviews"></router-link>
+  <router-link to="/user-info"></router-link>
+  <router-link to="/meet"></router-link>
 </template>

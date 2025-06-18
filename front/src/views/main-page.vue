@@ -6,7 +6,7 @@
           <img src="../assets/images/photo-user.svg" alt="Фото пользователя" />
         </div>
         <div class="welcome_hi">
-          <h2>Привет, Алина!</h2>
+          <h2>Привет, {{ userName }}!</h2>
           <h3>С любовью к деталям</h3>
         </div>
       </div>
@@ -39,15 +39,15 @@
 
           <div class="action_other-group">
             <div class="action_other-card">
-              <p>Консультация у эксперта</p>
-              <IconButton href="/chats" class="icon-arrow">
+              <p>Консультация у эксперта</p>
+              <IconButton href="/experts" class="icon-arrow">
                 <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
             </div>
 
             <div class="action_other-card">
               <p>Избранное</p>
-              <IconButton href="/favourites" class="icon-arrow">  <!--страницы очень похожи-->
+              <IconButton href="/favourites" class="icon-arrow">
                 <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
             </div>
@@ -99,7 +99,7 @@
       <article class="memory">
         <div class="block_header">
           <h2>Вы проверяли</h2>
-          <IconButton href="/favourites">  <!--страницы очень похожи-->
+          <IconButton href="/favourites">
             <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>
@@ -121,12 +121,17 @@
 </template>
 
 <script setup>
-import IconButton from '@/components/UI/IconButton.vue';
-import InputSearch from '@/components/InputSearch.vue';
-import Footer from '@/components/Footer.vue';
-import CardMini from '@/components/CardMini.vue';
+import { computed, ref } from 'vue'
+import { useUserStore } from '@/stores/user'
+import IconButton from '@/components/UI/IconButton.vue'
+import InputSearch from '@/components/InputSearch.vue'
+import Footer from '@/components/Footer.vue'
+import CardMini from '@/components/CardMini.vue'
 import photoProduct from '@/assets/images/photo-product.svg'
-import { ref } from 'vue'
+
+const userStore = useUserStore()
+const userName = computed(() => userStore.name || 'Гость')
+
 const products = ref([
   {
     image: photoProduct,
@@ -236,12 +241,6 @@ main h1 {
   font-size: 1em;
 }
 
-.action_check-product button {
-  transform: rotate(180deg);
-  background: none;
-  border: none;
-}
-
 .action_other {
   display: flex;
   gap: 16px;
@@ -251,11 +250,6 @@ main h1 {
   background-color: white;
   padding: 9px 13px;
   border-radius: 50%;
-}
-
-.icon-button {
-  display: flex;
-  align-items: flex-end;
 }
 
 .action_other-compare,
@@ -341,7 +335,6 @@ main h1 {
   flex-direction: column;
   gap: 8px;
   padding-bottom: 12px;
-
 }
 
 .experts_photo {
@@ -362,7 +355,6 @@ main h1 {
   color: white;
   font-size: 14px;
   padding: 4px 0;
-
   text-align: center;
   width: 55%;
   margin: 0;
@@ -432,51 +424,5 @@ main h1 {
   align-items: center;
   box-sizing: border-box;
   width: 53% !important;
-}
-
-.cosmetics-info {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.cosmetics-info_photo {
-  background-image: url("../assets/images/photo-product.png");
-  width: 116px;
-  height: 128px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 12px;
-  margin: 0 auto;
-}
-
-.cosmetics-info_text {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.cosmetics-info_text span {
-  font-size: 14px;
-  color: rgba(84, 84, 84, 1);
-}
-
-.cosmetics-info_text p {
-  font-size: 16px;
-  margin: 0;
-  width: 87%;
-}
-
-.cosmetics-info_safety {
-  border: 1px solid rgba(163, 104, 240, 1);
-  border-radius: 12px;
-  padding: 4px 12px;
-  width: 85%;
-}
-
-.cosmetics-info_safety p {
-  font-size: 14px;
-  color: rgba(163, 104, 240, 1);
-  margin: 0;
 }
 </style>

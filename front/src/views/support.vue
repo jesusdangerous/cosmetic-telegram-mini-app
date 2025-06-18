@@ -43,13 +43,13 @@
               всегда рада помочь.</p>
           <div>
             <h4>Как к вам обращаться?</h4>
-            <Input placeholder="Имя"></Input>
-            <Input type="phone" placeholder="+7 999 999 99 99"></Input>
+            <Input placeholder="Имя" v-model="feedback.name"></Input>
+            <Input type="email" placeholder="Ваш email" v-model="feedback.email"></Input>
           </div>
           <div>
             <h4>Ваш вопрос</h4>
-            <textarea placeholder="Вопросы, комментарии, предложения"></textarea>
-            <Button text="Отправить"></Button>
+            <textarea placeholder="Вопросы, комментарии, предложения" v-model="feedback.question"></textarea>
+            <Button text="Отправить" @click="submitFeedback"></Button>
           </div>
         </div>
       </article>
@@ -59,27 +59,88 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import Button from '@/components/UI/Button.vue';
-import Input from '@/components/UI/Input.vue';
-import IconButton from '@/components/UI/IconButton.vue';
-import Footer from '@/components/Footer.vue';
-const faqItems = ref([
-  {
-    question: 'Как проверить состав косметического средства?',
-    answer: 'Здесь выпадающая информация!',
-    isOpen: false
-  },
-  {
-    question: 'Что такое безопасность?',
-    answer: 'Здесь выпадающая информация!',
-    isOpen: false
-  }
-]);
+  import { ref } from 'vue';
+  import Button from '@/components/UI/Button.vue';
+  import Input from '@/components/UI/Input.vue';
+  import IconButton from '@/components/UI/IconButton.vue';
+  import Footer from '@/components/Footer.vue';
+  const faqItems = ref([
+    {
+      question: 'Как проверить состав косметического средства?',
+      answer: 'Хотите узнать, безопасен ли ваш крем, шампунь или декоративная косметика? В нашем приложении это просто!🔹 3 шага для проверки:Нажмите на кнопку «Проверить средство» на главном экране. Выберите способ проверки: 📸 Загрузить фото состава (просто сфотографируйте список ингредиентов на упаковке) или✍️ введите состав вручную (если нет упаковки под рукой). Нажмите на кнопку «Анализ состава» (📊).',
+      isOpen: false
+    },
+    {
+      question: 'Что такое безопасность?',
+      answer: 'Безопасность в косметике — это отсутствие вредных компонентов, способных вызвать раздражение, аллергию или долгосрочные проблемы со здоровьем. Она достигается за счёт натуральных или научно проверенных ингредиентов, одобренных дерматологами. Важно проверять состав, чтобы избежать парабенов, сульфатов, синтетических отдушек и других агрессивных веществ. (🔍 Проверить безопасность средства можно в нашем приложении — просто загрузите фото состава)',
+      isOpen: false
+    }
+  ]);
 
-const toggleDropdown = (index) => {
-  faqItems.value[index].isOpen = !faqItems.value[index].isOpen;
-};
+  const toggleDropdown = (index) => {
+    faqItems.value[index].isOpen = !faqItems.value[index].isOpen;
+  };
+
+    const feedback = ref({
+    name: '',
+    email: '',
+    question: ''
+  });
+
+  const submitFeedback = async () => {
+    if (!feedback.value.email?.trim()) {
+      alert("Пожалуйста, введите email");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(feedback.value.email)) {
+      alert("Введите корректный email (например, user@example.com)");
+      return;
+    }
+
+    if (!feedback.value.question.trim()) {
+      alert("Пожалуйста, введите ваш вопрос");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: feedback.value.name,
+          email: feedback.value.email,
+          question: feedback.value.question
+        })
+      });
+
+      const contentType = response.headers.get('content-type');
+      let data;
+
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Unexpected response: ${text}`);
+      }
+
+      if (!response.ok) {
+        alert(data.error || data.message || "Неизвестная ошибка");
+        return;
+      }
+
+      feedback.value = { name: '', email: '', question: '' };
+
+      if (data.emailSent) {
+        alert('Спасибо! Ваше сообщение отправлено.');
+      } else {
+        alert('Сообщение сохранено, но не отправлено. Мы свяжемся с вами позже.');
+      }
+    } catch (error) {
+      console.error('Ошибка при отправке:', error);
+      alert('Ошибка сервера: ' + error.message);
+    }
+  };
 </script>
 
 <style scoped>
