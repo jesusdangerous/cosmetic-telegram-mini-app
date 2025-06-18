@@ -23,6 +23,9 @@ import Expert2 from '@/views/expert2.vue'
 import Expert3 from '@/views/expert3.vue'
 import Expert4 from '@/views/expert4.vue'
 import Expert5 from '@/views/expert5.vue'
+import UserInfo from '@/views/user-info.vue'
+import Meet from '@/views/meet.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -145,6 +148,16 @@ const router = createRouter({
       path: '/expert5',
       name: 'expert5',
       component: Expert5
+    },
+    {
+      path: '/user-info',
+      name: 'userInfo',
+      component: UserInfo,
+    },
+    {
+      path: '/meet',
+      name: 'meet',
+      component: Meet,
     }
   ],
 })
