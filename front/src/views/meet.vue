@@ -1,97 +1,77 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-<modelVersion>4.0.0</modelVersion>
-<parent>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-parent</artifactId>
-  <version>3.5.0</version>
-  <relativePath/> <!-- lookup parent from repository -->
-</parent>
-<groupId>com.cosmetic.telegram</groupId>
-<artifactId>app</artifactId>
-<version>0.0.1-SNAPSHOT</version>
-<name>app</name>
-<description>Telegram mini app</description>
-<url/>
-<licenses>
-  <license/>
-</licenses>
-<developers>
-  <developer/>
-</developers>
-<scm>
-  <connection/>
-  <developerConnection/>
-  <tag/>
-  <url/>
-</scm>
-<properties>
-  <java.version>21</java.version>
-</properties>
-<dependencies>
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-test</artifactId>
-    <scope>test</scope>
-  </dependency>
-  <!-- Spring Boot Starter Web -->
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-  </dependency>
+<template>
+  <div class="page-wrapper">
+    <nav>
+      <a href="/main-page">Пропустить</a>
+    </nav>
+    <header>
+      <h1>Познакомимся поближе</h1>
+      <p>Нам можно доверять</p>
+    </header>
+    <main>
+      <FormAllergy />
+      <div class="other">
+        <h2>Другое:</h2>
+        <textarea placeholder="Аллергены, которых нет в нашем списке"></textarea>
+      </div>
+      <Button text="Сохранить"></Button>
+    </main>
+  </div>
+</template>
 
-  <!-- Spring Data JPA -->
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-  </dependency>
+<script setup>
+import FormAllergy from '@/components/FormAllergy.vue';
+import Button from '@/components/UI/Button.vue';
 
-  <!-- Database (H2 for development) -->
-  <dependency>
-    <groupId>org.postgresql</groupId>
-    <artifactId>postgresql</artifactId>
-    <scope>runtime</scope>
-  </dependency>
+</script>
 
-  <!-- Lombok -->
-  <dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <optional>true</optional>
-  </dependency>
 
-  <!-- Java Mail Sender -->
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-mail</artifactId>
-  </dependency>
+<style scoped>
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 92%;
+  padding: 20px 0 372px;
+}
+nav{
+  display: flex;
+  justify-content: flex-end;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.other h2 {
+  font-size: 20px;
+}
+textarea {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  height: 100px;
+}
+.other {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.page-wrapper a {
+  margin-left: 95%;
+}
 
-  <!-- Validation -->
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-validation</artifactId>
-  </dependency>
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-security</artifactId>
-  </dependency>
+h1 {
+  text-align: center;
+}
 
-  <dependency>
-    <groupId>org.jsoup</groupId>
-    <artifactId>jsoup</artifactId>
-    <version>1.15.3</version>
-  </dependency>
-</dependencies>
-
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-maven-plugin</artifactId>
-    </plugin>
-  </plugins>
-</build>
-
-</project>
+header p {
+  text-align: center;
+  color: #545454;
+}
+</style>
