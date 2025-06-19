@@ -1,4 +1,4 @@
-package com.cosmetic.telegram.app.config;
+package com.cosmetic.telegram.app.controller;
 
 import com.cosmetic.telegram.app.dto.AnalysisResultDto;
 import com.cosmetic.telegram.app.dto.ComparisonResultDto;
