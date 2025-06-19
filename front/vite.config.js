@@ -7,6 +7,11 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
+    allowedHosts: [
+      "cosmetic-telegram-mini-app.onrender.com",
+      "cosmetic-telegram-mini-app-2.onrender.com",
+      "cosmetic-telegram-mini-app-3.onrender.com"
+    ],
     proxy: {
       '/api': {
         target: 'http://backend:8080',
@@ -18,9 +23,11 @@ export default defineConfig({
   preview: {
     port: isNaN(parseInt(process.env.PORT)) ? 3000 : parseInt(process.env.PORT),
     host: true,
-    allowedHosts: ["cosmetic-telegram-mini-app.onrender.com",
+    allowedHosts: [
+      "cosmetic-telegram-mini-app.onrender.com",
       "cosmetic-telegram-mini-app-2.onrender.com",
-      "cosmetic-telegram-mini-app-3.onrender.com"]
+      "cosmetic-telegram-mini-app-3.onrender.com"
+    ]
   },
   resolve: {
     alias: {
