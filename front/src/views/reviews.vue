@@ -1,52 +1,101 @@
 <template>
   <div class="page-wrapper">
     <teleport to="body">
-        <div v-if="showSortModal" class="modal-overlay" @click.self="closeSortModal">
-          <SortReviews @sort-changed="handleSortChanged" />
-        </div>
-      </teleport>
+      <div v-if="showSortModal" class="modal-overlay" @click.self="closeSortModal">
+        <SortReviews @sort-changed="handleSortChanged" />
+      </div>
+      <div v-if="showReviewModal" class="modal-overlay" @click.self="closeReviewModal">
+        <NewReviewModal @submit-review="handleNewReview" @cancel="closeReviewModal" />
+      </div>
+    </teleport>
+
     <header>
       <IconButton href="/analysis-result"><img src="../assets/images/arrow-back.svg"></IconButton>
       <h1>Отзывы</h1>
     </header>
-    <main>
 
+    <main>
       <div class="reviews-info">
         <div>
           <img src="../assets/images/reviews-star.svg">
-          <p>4,3</p>
+          <p>{{ averageRating.toFixed(1) }}</p>
         </div>
-        <span>14 оценок</span>
+        <span>{{ reviews.length }} {{ reviewCountText }}</span>
       </div>
+
       <div class="reviews-parametrs">
         <button @click="openSortModal">
           <img src="../assets/images/icon-arrow-up-down.svg">
-          <p>Новые</p>
+          <p>{{ sortOption === 'newest' ? 'Новые' : 'Старые' }}</p>
         </button>
-        <a>
-          <p>Оставить отзыв</p>
-        </a>
+        <button
+          @click="openReviewModal"
+          class="leave-review-btn"
+          :disabled="isSubmitting"
+        >
+          <span v-if="!isSubmitting">Оставить отзыв</span>
+          <span v-else>Отправка...</span>
+        </button>
       </div>
+
       <div class="reviews">
-          <Review
-            v-for="review in reviews"
-            :key="review.id"
-            :review="review"
-          />
+        <Review
+          v-for="review in sortedReviews"
+          :key="review.id"
+          :review="review"
+        />
       </div>
     </main>
-
-
   </div>
-
 </template>
 
 <script setup>
-  import IconButton from '@/components/UI/IconButton.vue';
-  import Review from '@/components/Review.vue';
-  import photoUser from '@/assets/images/photo-user-1.svg'
+import { ref, computed, onMounted } from 'vue'
+import { useCookies } from 'vue3-cookies'
+import IconButton from '@/components/UI/IconButton.vue'
+import Review from '@/components/Review.vue'
+import SortReviews from './sort-reviews.vue'
+import NewReviewModal from './NewReviewModal.vue'
+import photoUser from '@/assets/images/photo-user-1.svg'
 
-const reviews = [
+const { cookies } = useCookies()
+const COOKIE_NAME = 'product_reviews_v3'
+
+// Состояние
+const reviews = ref([])
+const showSortModal = ref(false)
+const showReviewModal = ref(false)
+const sortOption = ref('newest')
+const isSubmitting = ref(false)
+
+// Вычисляемые свойства (остаются без изменений)
+const averageRating = computed(() => {
+  if (!reviews.value.length) return 0
+  const sum = reviews.value.reduce((acc, review) => acc + review.rating, 0)
+  return sum / reviews.value.length
+})
+
+const reviewCountText = computed(() => {
+  const count = reviews.value.length
+  const lastDigit = count % 10
+  const lastTwoDigits = count % 100
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'оценок'
+  if (lastDigit === 1) return 'оценка'
+  if (lastDigit >= 2 && lastDigit <= 4) return 'оценки'
+  return 'оценок'
+})
+
+const sortedReviews = computed(() => {
+  return [...reviews.value].sort((a, b) => {
+    return sortOption.value === 'newest'
+      ? new Date(b.date) - new Date(a.date)
+      : new Date(a.date) - new Date(b.date)
+  })
+})
+
+// Методы
+const getDefaultReviews = () => [
   {
     id: '1',
     userPhoto: photoUser,
@@ -64,17 +113,85 @@ const reviews = [
     rating: 5,
     pros: 'Очень довольна покупкой!',
     cons: 'Нет',
-  },
+  }
 ]
 
-import { ref } from 'vue'
+const loadReviews = () => {
+  try {
+    const savedReviews = cookies.get(COOKIE_NAME);
 
-// другие импорты...
-import sortReviews from './sort-reviews.vue' // импорт модалки
-import SortReviews from './sort-reviews.vue';
+    // Добавляем более строгую проверку
+    if (Array.isArray(savedReviews)) {
+      // Фильтруем некорректные записи
+      return savedReviews.filter(review =>
+        review?.id &&
+        review?.userName &&
+        typeof review?.rating === 'number'
+      );
+    }
 
-const showSortModal = ref(false)
+    // Возвращаем дефолтные отзывы, если нет сохранённых или они некорректны
+    return getDefaultReviews();
+  } catch (e) {
+    console.error('Ошибка загрузки отзывов:', e);
+    return getDefaultReviews();
+  }
+};
 
+
+const saveReviews = () => {
+  try {
+    // Добавляем проверку перед сохранением
+    if (!Array.isArray(reviews.value)) {
+      console.error('Отзывы не являются массивом');
+      return;
+    }
+
+    // Ограничиваем размер сохраняемых данных
+    const reviewsToSave = reviews.value.slice(0, 50);
+
+    cookies.set(COOKIE_NAME, reviewsToSave, {
+      expires: '30d',
+      secure: true,
+      sameSite: 'Strict',
+      path: '/'
+    });
+
+    // Логируем успешное сохранение
+    console.log('Отзывы успешно сохранены');
+  } catch (e) {
+    console.error('Ошибка сохранения отзывов:', e);
+
+    // Дополнительная обработка ошибки
+    if (e.message.includes('exceeded')) {
+      alert('Слишком много отзывов для сохранения. Некоторые отзывы не будут сохранены.');
+    }
+  }
+};
+
+const handleNewReview = (newReview) => {
+  isSubmitting.value = true
+  try {
+    const review = {
+      ...newReview,
+      id: Date.now().toString(),
+      date: new Date().toISOString(),
+      userPhoto: 'https://randomuser.me/api/portraits/lego/5.jpg',
+      rating: Number(newReview.rating) || 5
+    }
+
+    reviews.value = [review, ...reviews.value]
+    saveReviews()
+    closeReviewModal()
+  } catch (error) {
+    console.error('Ошибка при добавлении отзыва:', error)
+    alert('Ошибка при сохранении отзыва: ' + error.message)
+  } finally {
+    isSubmitting.value = false
+  }
+}
+
+// Остальные методы остаются без изменений
 const openSortModal = () => {
   showSortModal.value = true
 }
@@ -83,16 +200,113 @@ const closeSortModal = () => {
   showSortModal.value = false
 }
 
-const handleSortChanged = (value) => {
-  // здесь можно применить сортировку
-  console.log('Сортировка:', value)
+const openReviewModal = () => {
+  showReviewModal.value = true
+}
+
+const closeReviewModal = () => {
+  showReviewModal.value = false
+}
+
+const handleSortChanged = (option) => {
+  sortOption.value = option
   closeSortModal()
 }
 
+// Инициализация
+onMounted(() => {
+  reviews.value = loadReviews()
+})
 </script>
 
 <style scoped>
-:deep(.modal-overlay) {
+.page-wrapper {
+  width: 92%;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+header {
+  display: flex;
+  gap: 5%;
+  align-items: center;
+}
+
+h1 {
+  width: 87%;
+  text-align: center;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.reviews-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.reviews-info div {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.reviews-info span {
+  color: #545454;
+  font-size: 14px;
+}
+
+.reviews-parametrs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reviews-parametrs button {
+  background-color: #FBFBFB;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.leave-review-btn {
+  background: none;
+  border: none;
+  color: #007BFF;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  transition: opacity 0.3s;
+}
+
+.leave-review-btn:hover:not(:disabled) {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.leave-review-btn:disabled {
+  color: #cccccc;
+  cursor: not-allowed;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -103,66 +317,5 @@ const handleSortChanged = (value) => {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.reviews {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.reviews-parametrs {
-  display: flex;
-  justify-content: space-between;
-}
-.reviews-parametrs button {
-  background-color: #FBFBFB;
-  justify-content: center;
-  border: none;
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  width: 28%;
-  padding: 10px 12px;
-}
-.reviews-parametrs a {
-  display: flex;
-  align-items: center;
-}
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-header {
-  display: flex;
-  gap: 5%;
-}
-h1 {
-  width: 87%;
-  text-align: center;
-}
-.page-wrapper {
-  width: 92%;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding: 20px 0;
-}
-.reviews-info {
-  display: flex;
-  gap: 12px;
-}
-.reviews-info span {
-  color: #545454;
-  font-size: 14px;
-  display: flex;
-  align-items: end;
-}
-.reviews-info div {
-  display: flex;
-  gap: 5px;
-}
-.page-wrapper {
-  width: 92%;
-  padding: 20px 0;
 }
 </style>
