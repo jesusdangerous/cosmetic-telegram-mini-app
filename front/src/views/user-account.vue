@@ -10,9 +10,10 @@
           <div>
             <img src="../assets/images/photo-user.svg">
             <div>
-              <h2 v-if="!editMode">{{ userName }}</h2>
+              <h2 v-if="!editMode">{{ userName || 'Пользователь' }}</h2>
               <input v-else v-model="tempName" type="text" class="name-input">
-              <p>+7 977 324 8982</p>
+              <p><strong>Email:</strong> {{ userEmail || 'Не указан' }}</p>
+              <p><strong>Телефон:</strong> {{ userPhone || 'Не указан' }}</p>
             </div>
           </div>
           <button @click="toggleEditMode">
@@ -20,7 +21,7 @@
           </button>
         </div>
 
-        <div>
+        <div class="notification-section">
           <label class="message-input">Уведомления</label>
           <label class="checkbox-message">
             <input v-model="notificationsEnabled" type="checkbox">
@@ -28,7 +29,7 @@
           </label>
         </div>
 
-        <div>
+        <div class="language-section">
           <p>Язык</p>
           <span>Русский</span>
         </div>
@@ -38,17 +39,27 @@
           <IconButton><img class="arrow" src="../assets/images/arrow-back.svg"></IconButton>
         </div>
 
-        <div>
-          <p>Реакции: <span v-for="(reaction, index) in reactions" :key="'reaction-'+index">
-            {{ reaction }}{{ index < reactions.length - 1 ? ', ' : '' }}
-          </span></p>
+        <div class="reactions-section">
+          <p><strong>Реакции:</strong>
+            <span v-if="userReactions.length">
+              <span v-for="(reaction, index) in userReactions" :key="'reaction-'+index">
+                {{ reaction }}{{ index < userReactions.length - 1 ? ', ' : '' }}
+              </span>
+            </span>
+            <span v-else>Нет сохраненных реакций</span>
+          </p>
           <button @click="showReactionsModal = true">Редактировать</button>
         </div>
 
-        <div>
-          <p>Аллергены: <span v-for="(allergen, index) in allergens" :key="'allergen-'+index">
-            {{ allergen }}{{ index < allergens.length - 1 ? ', ' : '' }}
-          </span></p>
+        <div class="allergens-section">
+          <p><strong>Аллергены:</strong>
+            <span v-if="formattedAllergens.length">
+              <span v-for="(allergen, index) in formattedAllergens" :key="'allergen-'+index">
+                {{ allergen }}{{ index < formattedAllergens.length - 1 ? ', ' : '' }}
+              </span>
+            </span>
+            <span v-else>Нет сохраненных аллергенов</span>
+          </p>
           <button @click="showAllergensModal = true">Редактировать</button>
         </div>
 
@@ -65,15 +76,40 @@
     </main>
     <Footer></Footer>
 
+    <!-- Модальное окно редактирования профиля -->
+    <div v-if="showEditModal" class="modal">
+      <div class="modal-content">
+        <span class="close" @click="showEditModal = false">&times;</span>
+        <h2>Редактировать профиль</h2>
+        <form @submit.prevent="saveProfile">
+          <div class="form-group">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" v-model="editName" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" v-model="editEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" v-model="editPhone">
+          </div>
+          <button type="submit" class="save-btn">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Модальное окно редактирования реакций -->
     <div v-if="showReactionsModal" class="modal">
       <div class="modal-content">
-        <h3>Мои реакции</h3>
+        <span class="close" @click="showReactionsModal = false">&times;</span>
+        <h2>Редактировать реакции</h2>
         <div class="input-group">
           <input v-model="newReaction" type="text" placeholder="Добавить реакцию" @keyup.enter="addReaction">
           <button @click="addReaction">+</button>
         </div>
         <ul>
-          <li v-for="(reaction, index) in reactions" :key="index">
+          <li v-for="(reaction, index) in tempReactions" :key="index">
             {{ reaction }}
             <button @click="removeReaction(index)" class="remove-btn">×</button>
           </li>
@@ -85,15 +121,18 @@
       </div>
     </div>
 
+    <!-- Модальное окно редактирования аллергенов -->
     <div v-if="showAllergensModal" class="modal">
       <div class="modal-content">
-        <h3>Мои аллергены</h3>
+        <span class="close" @click="showAllergensModal = false">&times;</span>
+        <h2>Редактировать аллергены</h2>
+        <FormAllergy />
         <div class="input-group">
-          <input v-model="newAllergen" type="text" placeholder="Добавить аллерген" @keyup.enter="addAllergen">
+          <input v-model="newAllergen" type="text" placeholder="Добавить другой аллерген" @keyup.enter="addAllergen">
           <button @click="addAllergen">+</button>
         </div>
         <ul>
-          <li v-for="(allergen, index) in allergens" :key="index">
+          <li v-for="(allergen, index) in customAllergens" :key="index">
             {{ allergen }}
             <button @click="removeAllergen(index)" class="remove-btn">×</button>
           </li>
@@ -113,19 +152,49 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import IconButton from '@/components/UI/IconButton.vue'
 import Footer from '@/components/Footer.vue'
+import FormAllergy from '@/components/FormAllergy.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
 
 // Состояние пользователя
-const userName = computed(() => userStore.name || 'Пользователь')
+const userName = computed(() => userStore.name)
+const userEmail = computed(() => userStore.email)
+const userPhone = computed(() => userStore.phone)
+const userReactions = computed(() => userStore.reactions || [])
+const userAllergens = computed(() => userStore.allergens || [])
 const tempName = ref('')
 const editMode = ref(false)
 const notificationsEnabled = ref(true)
+const customAllergens = ref([])
+
+const formattedAllergens = computed(() => {
+  const allergenLabels = {
+    paraben: 'Парабены',
+    aromatizer: 'Ароматизаторы',
+    dye: 'Красители',
+    sulfate: 'Сульфаты',
+    oil: 'Эфирные масла',
+    alcohol: 'Алкоголь',
+    photosensitizer: 'Фотосенсибилизаторы',
+    preservative: 'Консерванты',
+    protein: 'Протеины',
+    beekeeping: 'Продукты пчеловодства'
+  }
+
+  return [
+    ...userAllergens.value.map(id => allergenLabels[id] || id),
+    ...customAllergens.value
+  ]
+})
+
+// Редактирование профиля
+const showEditModal = ref(false)
+const editName = ref('')
+const editEmail = ref('')
+const editPhone = ref('')
 
 // Реакции и аллергены
-const reactions = ref([])
-const allergens = ref([])
 const showReactionsModal = ref(false)
 const showAllergensModal = ref(false)
 const newReaction = ref('')
@@ -136,29 +205,39 @@ const tempAllergens = ref([])
 // Загрузка данных при монтировании
 onMounted(() => {
   loadUserData()
+  editName.value = userStore.name
+  editEmail.value = userStore.email
+  editPhone.value = userStore.phone
+
+  // Загружаем кастомные аллергены (те, которые не входят в стандартный список)
+  const standardAllergens = ['paraben', 'aromatizer', 'dye', 'sulfate', 'oil',
+    'alcohol', 'photosensitizer', 'preservative', 'protein', 'beekeeping']
+  customAllergens.value = userStore.allergens.filter(
+    allergen => !standardAllergens.includes(allergen))
 })
 
 const loadUserData = () => {
-  // Загружаем реакции
-  const savedReactions = localStorage.getItem('userReactions')
-  if (savedReactions) reactions.value = JSON.parse(savedReactions)
-
-  // Загружаем аллергены
-  const savedAllergens = localStorage.getItem('userAllergens')
-  if (savedAllergens) allergens.value = JSON.parse(savedAllergens)
-
-  // Инициализируем временные данные
-  tempReactions.value = [...reactions.value]
-  tempAllergens.value = [...allergens.value]
+  tempReactions.value = [...userReactions.value]
+  tempAllergens.value = [...userAllergens.value]
 }
 
 const toggleEditMode = () => {
   if (editMode.value) {
-    userStore.updateUser({ name: tempName.value })
+    showEditModal.value = true
   } else {
     tempName.value = userStore.name
   }
   editMode.value = !editMode.value
+}
+
+const saveProfile = () => {
+  userStore.setUser({
+    name: editName.value,
+    email: editEmail.value,
+    phone: editPhone.value
+  })
+  showEditModal.value = false
+  editMode.value = false
 }
 
 const goBack = () => {
@@ -191,68 +270,137 @@ const removeReaction = (index) => {
 }
 
 const saveReactions = () => {
-  reactions.value = [...tempReactions.value]
-  localStorage.setItem('userReactions', JSON.stringify(reactions.value))
+  userStore.setReactions(tempReactions.value)
   showReactionsModal.value = false
 }
 
 const cancelReactions = () => {
-  tempReactions.value = [...reactions.value]
+  tempReactions.value = [...userReactions.value]
   showReactionsModal.value = false
 }
 
 // Функции для работы с аллергенами
 const addAllergen = () => {
   if (newAllergen.value.trim()) {
-    tempAllergens.value.push(newAllergen.value.trim())
+    customAllergens.value.push(newAllergen.value.trim())
     newAllergen.value = ''
   }
 }
 
 const removeAllergen = (index) => {
-  tempAllergens.value.splice(index, 1)
+  customAllergens.value.splice(index, 1)
 }
 
 const saveAllergens = () => {
-  allergens.value = [...tempAllergens.value]
-  localStorage.setItem('userAllergens', JSON.stringify(allergens.value))
+  const allAllergens = [...userStore.allergens.filter(id => {
+    const standardAllergens = ['paraben', 'aromatizer', 'dye', 'sulfate', 'oil',
+      'alcohol', 'photosensitizer', 'preservative', 'protein', 'beekeeping']
+    return standardAllergens.includes(id)
+  }), ...customAllergens.value]
+
+  userStore.setAllergens(allAllergens)
   showAllergensModal.value = false
 }
 
 const cancelAllergens = () => {
-  tempAllergens.value = [...allergens.value]
+  const standardAllergens = ['paraben', 'aromatizer', 'dye', 'sulfate', 'oil',
+    'alcohol', 'photosensitizer', 'preservative', 'protein', 'beekeeping']
+  customAllergens.value = userStore.allergens.filter(
+    allergen => !standardAllergens.includes(allergen))
   showAllergensModal.value = false
 }
 </script>
 
 <style scoped>
-.exit {
+.page-wrapper {
   display: flex;
-  width: 100%;
+  flex-direction: column;
+  gap: 32px;
+  width: 92%;
+  margin: 0;
+  padding: 20px 16px 114px 16px;
 }
 
-.arrow {
-  transform: rotate(180deg);
+header {
+  display: flex;
+  align-items: center;
 }
-.help p{
-  font-weight: bold;
+
+header h1 {
+  width: 100%;
+  text-align: center;
 }
+
+.data-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.data-user > div {
+  display: flex;
+  gap: 16px;
+}
+
+.data-user img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.data-user h2 {
+  font-size: 18px;
+  margin: 0 0 4px 0;
+}
+
+.data-user p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.data-user button {
+  padding: 8px 16px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.notification-section,
+.language-section,
+.reactions-section,
+.allergens-section,
+.help,
+.exit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.clickable-section {
+  cursor: pointer;
+}
+
+.name-input {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 18px;
+}
+
+/* Стили для чекбокса уведомлений */
 .checkbox-message {
   display: inline-block;
   height: 28px;
   line-height: 28px;
-  margin-right: 10px;
   position: relative;
   vertical-align: middle;
-  font-size: 14px;
   user-select: none;
-  margin: 0;
-}
-
-.message-input {
-  font-size: 16px;
-  display: flex;
-  align-items: center;
 }
 
 .checkbox-message .checkbox-message-switch {
@@ -267,6 +415,7 @@ const cancelAllergens = () => {
   background: #eee;
   transition: .2s;
 }
+
 .checkbox-message .checkbox-message-switch:before {
   content: '';
   position: absolute;
@@ -280,6 +429,7 @@ const cancelAllergens = () => {
   box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
   transition: .15s;
 }
+
 .checkbox-message input[type=checkbox] {
   display: block;
   width: 0;
@@ -288,152 +438,20 @@ const cancelAllergens = () => {
   z-index: -1;
   opacity: 0;
 }
-.checkbox-message input[type=checkbox]:not(:disabled):active + .checkbox-message-switch:before {
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, .3);
-}
+
 .checkbox-message input[type=checkbox]:checked + .checkbox-message-switch {
   background: rgba(163, 104, 240, 1);
 }
+
 .checkbox-message input[type=checkbox]:checked + .checkbox-message-switch:before {
-  transform:translateX(28px);
+  transform: translateX(28px);
 }
 
-/* Focus */
-.checkbox-message.focused .checkbox-message-switch:before {
-  box-shadow: inset 0px 0px 4px #ff5623;
+.arrow {
+  transform: rotate(180deg);
 }
 
-/* Disabled */
-.checkbox-message input[type=checkbox]:disabled + .checkbox-message-switch {
-  filter: grayscale(70%);
-  border-color: rgba(0, 0, 0, .1);
-}
-.checkbox-message input[type=checkbox]:disabled + .checkbox-message-switch:before {
-  background: #eee;
-}
-
-.page-wrapper{
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  width: 92%;
-  margin: 0;
-  padding: 20px 16px 114px 16px;
-}
-
-.data-user button {
-  width: 29%;
-  height: 36px;
-  border-radius: 12px;
-  border: 1px solid rgba(19, 19, 19, 1);
-  background-color: transparent;
-}
-
-.data-user div {
-  display: flex;
-  gap: 12px;
-}
-
-article div {
-  display: flex;
-  justify-content: space-between;
-}
-
-article div button {
-  border: none;
-  font-weight: bold;
-  background-color: transparent;
-}
-
-article div p {
-  font-size: 16px;
-}
-
-.data-user div div {
-  flex-direction: column;
-  gap: 8px;
-}
-
-.data-user {
-  display: flex;
-  justify-content: space-between;
-}
-
-article {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-header {
-  display: flex;
-}
-
-header button{
-  width: 32px;
-  padding: 8px !important;
-}
-
-header h1 {
-  width: 87%;
-  text-align: center;
-}
-
-.clickable-section {
-  cursor: pointer;
-}
-
-.name-input {
-  border: 1px solid #ccc;
-  padding: 5px;
-  border-radius: 4px;
-  width: 100%;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 500px;
-}
-
-.modal-content ul {
-  list-style: none;
-  padding: 0;
-  margin: 15px 0;
-}
-
-.modal-content li {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.modal-content button {
-  margin: 5px;
-  padding: 5px 10px;
-}
-
-div > p > span {
-  font-weight: normal;
-}
-
-/* Стили для модальных окон */
+/* Модальные окна */
 .modal {
   position: fixed;
   top: 0;
@@ -455,6 +473,31 @@ div > p > span {
   max-width: 400px;
   max-height: 80vh;
   overflow-y: auto;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .input-group {
@@ -522,5 +565,9 @@ li {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+strong {
+  font-weight: bold;
 }
 </style>

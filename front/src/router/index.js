@@ -8,7 +8,7 @@ import UserAccount from '@/views/user-account.vue'
 import WarningAccount from '@/views/warning-account.vue'
 import WarningFavourites from '@/views/warning-favourites.vue'
 import Favourites from '@/views/favourites.vue'
-import SafetyCosmetics from '@/views/safety-cosmetics.vue'
+import SafetyCosmeticsCream from '@/views/safety-cosmetics-cream.vue'
 import Experts from '@/views/experts.vue'
 import Expert from '@/views/expert1.vue'
 import Chats from '@/views/chats.vue'
@@ -25,6 +25,16 @@ import Expert4 from '@/views/expert4.vue'
 import Expert5 from '@/views/expert5.vue'
 import UserInfo from '@/views/user-info.vue'
 import Meet from '@/views/meet.vue'
+import SafetyCosmeticsBlush from '@/views/safety-cosmetics-blush.vue'
+import SafetyCosmeticsBronzer from '@/views/safety-cosmetics-bronzer.vue'
+import SafetyCosmeticsEyeliners from '@/views/safety-cosmetics-eyeliners.vue'
+import SafetyCosmeticsFoundationCream from '@/views/safety-cosmetics-foundation-cream.vue'
+import SafetyCosmeticsGlitters from '@/views/safety-cosmetics-glitters.vue'
+import SafetyCosmeticsHighlighter from '@/views/safety-cosmetics-highlighter.vue'
+import SafetyCosmeticsLipstick from '@/views/safety-cosmetics-lipstick.vue'
+import SafetyCosmeticsPowder from '@/views/safety-cosmetics-powder.vue'
+import SafetyCosmeticsShampoo from '@/views/safety-cosmetics-shampoo.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,9 +85,9 @@ const router = createRouter({
       component: Favourites,
     },
     {
-      path: '/safety-cosmetics',
-      name: 'safetyCosmetics',
-      component: SafetyCosmetics
+      path: '/safety-cosmetics-cream',
+      name: 'safety-cosmetics-cream',
+      component: SafetyCosmeticsCream
     },
     {
       path: '/experts',
@@ -158,6 +168,51 @@ const router = createRouter({
       path: '/meet',
       name: 'meet',
       component: Meet,
+    },
+    {
+      path: '/safety-cosmetics-blush',
+      name: 'safety-cosmetics-blush',
+      component: SafetyCosmeticsBlush,
+    },
+    {
+      path: '/safety-cosmetics-bronzer',
+      name: 'safety-cosmetics-bronzer',
+      component: SafetyCosmeticsBronzer,
+    },
+    {
+      path: '/safety-cosmetics-eyeliners',
+      name: 'safety-cosmetics-eyeliners',
+      component: SafetyCosmeticsEyeliners,
+    },
+    {
+      path: '/safety-cosmetics-foundation-cream',
+      name: 'safety-cosmetics-foundation-cream',
+      component: SafetyCosmeticsFoundationCream,
+    },
+    {
+      path: '/safety-cosmetics-glitters',
+      name: 'safety-cosmetics-glitters',
+      component: SafetyCosmeticsGlitters,
+    },
+    {
+      path: '/safety-cosmetics-highlighter',
+      name: 'safety-cosmetics-highlighter',
+      component: SafetyCosmeticsHighlighter,
+    },
+    {
+      path: '/safety-cosmetics-lipstick',
+      name: 'safety-cosmetics-lipstick',
+      component: SafetyCosmeticsLipstick,
+    },
+    {
+      path: '/safety-cosmetics-powder',
+      name: 'safety-cosmetics-powder',
+      component: SafetyCosmeticsPowder,
+    },
+    {
+      path: '/safety-cosmetics-shampoo',
+      name: 'safety-cosmetics-shampoo',
+      component: SafetyCosmeticsShampoo,
     }
   ],
 })

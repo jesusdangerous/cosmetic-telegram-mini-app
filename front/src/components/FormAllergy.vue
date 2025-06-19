@@ -3,50 +3,56 @@
     <fieldset>
       <legend>На что была выявлена аллергия?</legend>
       <div>
-        <div>
-          <input type="checkbox" id="paraben" name="paraben"/>
-          <label for="paraben">Парабены</label>
-        </div>
-        <div>
-          <input type="checkbox" id="aromatizer" name="aromatizer" />
-          <label for="aromatizer">Ароматизаторы</label>
-        </div>
-        <div>
-          <input type="checkbox" id="dye" name="dye" />
-          <label for="dye">Красители</label>
-        </div>
-        <div>
-          <input type="checkbox" id="sulfate" name="sulfate" />
-          <label for="sulfate">Сульфаты</label>
-        </div>
-        <div>
-          <input type="checkbox" id="oil" name="oil" />
-          <label for="oil">Эфирные масла</label>
-        </div>
-        <div>
-          <input type="checkbox" id="alcohol" name="alcohol" />
-          <label for="alcohol">Алкоголь</label>
-        </div>
-        <div>
-          <input type="checkbox" id="photosensitizer" name="photosensitizer" />
-          <label for="photosensitizer">Фотосенсибилизаторы</label>
-        </div>
-        <div>
-          <input type="checkbox" id="preservative" name="preservative" />
-          <label for="preservative">Консерванты</label>
-        </div>
-        <div>
-          <input type="checkbox" id="protein" name="protein" />
-          <label for="protein">Протеины</label>
-        </div>
-        <div>
-          <input type="checkbox" id="beekeeping" name="beekeeping" />
-          <label for="beekeeping">Продукты пчеловодства</label>
+        <div v-for="allergen in allergens" :key="allergen.id">
+          <input
+            type="checkbox"
+            :id="allergen.id"
+            :name="allergen.id"
+            :checked="isAllergenChecked(allergen.id)"
+            @change="toggleAllergen(allergen.id)"
+          />
+          <label :for="allergen.id">{{ allergen.label }}</label>
         </div>
       </div>
     </fieldset>
   </div>
 </template>
+
+<script setup>
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
+
+const allergens = [
+  { id: 'paraben', label: 'Парабены' },
+  { id: 'aromatizer', label: 'Ароматизаторы' },
+  { id: 'dye', label: 'Красители' },
+  { id: 'sulfate', label: 'Сульфаты' },
+  { id: 'oil', label: 'Эфирные масла' },
+  { id: 'alcohol', label: 'Алкоголь' },
+  { id: 'photosensitizer', label: 'Фотосенсибилизаторы' },
+  { id: 'preservative', label: 'Консерванты' },
+  { id: 'protein', label: 'Протеины' },
+  { id: 'beekeeping', label: 'Продукты пчеловодства' }
+]
+
+const isAllergenChecked = (id) => {
+  return userStore.allergens.includes(id)
+}
+
+const toggleAllergen = (id) => {
+  const currentAllergens = [...userStore.allergens]
+  const index = currentAllergens.indexOf(id)
+
+  if (index === -1) {
+    currentAllergens.push(id)
+  } else {
+    currentAllergens.splice(index, 1)
+  }
+
+  userStore.setAllergens(currentAllergens)
+}
+</script>
 
 <style scoped>
 legend {
@@ -83,8 +89,8 @@ fieldset label {
   user-select: none;
 }
 fieldset input[type="checkbox"]:checked + label {
-  background-color: #000; /* Черный фон */
-  color: #fff; /* Белый текст */
+  background-color: #000;
+  color: #fff;
 }
 fieldset label:hover {
   background-color: #eee;

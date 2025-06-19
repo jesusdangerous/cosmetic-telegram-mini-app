@@ -9,17 +9,18 @@
       <div class="data-user">
         <form ref="userForm" method="post" @submit="handleSubmit">
           <label>
-            <Input v-model="name" placeholder="Имя"></Input>
+            <Input v-model="name" placeholder="Имя" required></Input>
           </label>
           <label>
-            <Input v-model="email" type="email" placeholder="Почта"></Input>
+            <Input v-model="email" type="email" placeholder="Почта" required></Input>
           </label>
           <div class="checkbox">
-            <div>
-              <input v-model="consent" type="checkbox" id="true-data">
+            <div class="checkbox-wrapper">
+              <input v-model="consent" type="checkbox" id="true-data" required>
               <label for="true-data">Даю согласие на обработку данных</label>
+              <span v-if="showConsentError" class="error-message">Необходимо дать согласие</span>
             </div>
-            <Button type="submit" text="Получить код"></Button>
+            <Button type="submit" text="Получить код" :disabled="!consent"></Button>
           </div>
         </form>
       </div>
@@ -32,125 +33,130 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
-  import Input from '@/components/UI/Input.vue';
-  import Button from '@/components/UI/Button.vue';
-  import IconButton from '@/components/UI/IconButton.vue';
-  import NavButton from '@/components/UI/NavButton.vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import Input from '@/components/UI/Input.vue';
+import Button from '@/components/UI/Button.vue';
+import NavButton from '@/components/UI/NavButton.vue';
+import { useUserStore } from '@/stores/user';
 
-  const router = useRouter();
-  const name = ref('');
-  const email = ref('');
-  const consent = ref(false);
+const router = useRouter();
+const userStore = useUserStore();
+const name = ref('');
+const email = ref('');
+const consent = ref(false);
+const showConsentError = ref(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const response = await fetch('http://localhost:8080/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name.value,
-          email: email.value,
-          dataProcessingConsent: consent.value
-        })
+  if (!consent.value) {
+    showConsentError.value = true;
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:8080/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name.value,
+        email: email.value,
+        dataProcessingConsent: consent.value
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      userStore.setUser({
+        name: name.value,
+        email: email.value
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        router.push({
-          path: '/check-number',
-          query: { email: email.value }
-        });
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.error('Registration error:', error);
-      alert('Registration failed. Please try again.');
+      router.push({
+        path: '/check-number',
+        query: { email: email.value }
+      });
+    } else {
+      alert(data.message);
     }
-  };
+  } catch (error) {
+    console.error('Registration error:', error);
+    alert('Registration failed. Please try again.');
+  }
+};
 </script>
 
 <style scoped>
-  .page-wrapper {
-    min-height: 600px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding-top: 32px;
-    justify-content: space-between;
-  }
+.page-wrapper {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 32px;
+  justify-content: space-between;
+}
 
-  .skip-button {
-    border: none;
-    background-color: transparent;
-  }
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-  .main {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+header {
+  display: flex;
+  flex-direction: column;
+  color: rgba(19, 19, 19, 1);
+  text-align: center;
+  gap: 12px;
+}
 
-  button {
-    margin-left: auto;
-  }
+h1 {
+  margin: 0;
+  font-size: 32px;
+}
 
-  header {
-    display: flex;
-    flex-direction: column;
-    color: rgba(19, 19, 19, 1);
-    text-align: center;
-    gap: 12px;
-  }
+h2 {
+  font-size: 16px;
+  margin: 0;
+}
 
-  h1 {
-    margin: 0;
-    font-size: 32px;
-  }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
-  h2 {
-    font-size: 16px;
-    margin: 0;
-  }
+.data-user {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
+.checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
 
-  .data-user {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+.checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
-  .checkbox {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
 
-  footer {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  footer p {
-    margin: 0;
-    text-align: center;
-  }
-
-  footer div {
-    display: flex;
-    gap: 16px;
-  }
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 </style>
