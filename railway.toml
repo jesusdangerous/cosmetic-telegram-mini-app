@@ -1,6 +1,0 @@
-[build]
-builder = "DOCKER"
-dockerfile = "docker-compose.yml"
-
-[deploy]
-restart = "always"

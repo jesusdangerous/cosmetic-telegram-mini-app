@@ -65,7 +65,7 @@ git clone https://github.com/jesusdangerous/cosmetic-telegram-mini-app.git
 POSTGRES_PASSWORD=your_strong_password
 DB_HOST=postgres
 DB_PORT=5432
-DB_NAME=telegram_app
+DB_NAME=cosmeticguardian
 DB_USER=postgres
 
 # Почта
