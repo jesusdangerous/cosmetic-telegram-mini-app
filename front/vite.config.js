@@ -18,7 +18,7 @@ export default defineConfig({
   preview: {
     port: isNaN(parseInt(process.env.PORT)) ? 3000 : parseInt(process.env.PORT),
     host: true,
-    allowedHosts: ['cosmetic-telegram-mini-app.onrender.com']
+    allowedHosts: ['cosmetic-telegram-mini-app-2.onrender.com']
   },
   resolve: {
     alias: {
