@@ -1,58 +1,65 @@
 <template>
   <div class="skin">
     <fieldset>
-      <legend>Что из перечисленного у вас уже было?</legend>
+      <legend>Что из перечисленного у вас уже было?</legend>
       <div>
-        <div>
-          <input type="checkbox" id="allergy" name="allergy"/>
-          <label for="allergy">Аллергия</label>
-        </div>
-        <div>
-          <input type="checkbox" id="acne" name="acne" />
-          <label for="acne">Акне</label>
-        </div>
-        <div>
-          <input type="checkbox" id="dermatitis" name="dermatitis" />
-          <label for="dermatitis">Дерматит</label>
-        </div>
-        <div>
-          <input type="checkbox" id="peeling" name="peeling" />
-          <label for="peeling">Шелушение кожи</label>
-        </div>
-        <div>
-          <input type="checkbox" id="itch" name="itch" />
-          <label for="itch">Зуд</label>
-        </div>
-        <div>
-          <input type="checkbox" id="burn" name="burn" />
-          <label for="burn">Жжение</label>
-        </div>
-        <div>
-          <input type="checkbox" id="dryness" name="dryness" />
-          <label for="dryness">Сухость</label>
-        </div>
-        <div>
-          <input type="checkbox" id="pigment" name="pigment" />
-          <label for="pigment">Пигментация</label>
-        </div>
-        <div>
-          <input type="checkbox" id="nothing" name="nothing" />
-          <label for="nothing">Ничего</label>
+        <div v-for="condition in skinConditions" :key="condition.id">
+          <input
+            type="checkbox"
+            :id="condition.id"
+            :name="condition.id"
+            v-model="condition.checked"
+            @change="updateSelectedConditions"
+          >
+          <label :for="condition.id">{{ condition.label }}</label>
         </div>
       </div>
     </fieldset>
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
+
+const skinConditions = ref([
+  { id: 'allergy', label: 'Аллергия', checked: false },
+  { id: 'acne', label: 'Акне', checked: false },
+  { id: 'dermatitis', label: 'Дерматит', checked: false },
+  { id: 'peeling', label: 'Шелушение кожи', checked: false },
+  { id: 'itch', label: 'Зуд', checked: false },
+  { id: 'burn', label: 'Жжение', checked: false },
+  { id: 'dryness', label: 'Сухость', checked: false },
+  { id: 'pigment', label: 'Пигментация', checked: false },
+  { id: 'nothing', label: 'Ничего', checked: false }
+])
+
+onMounted(() => {
+  // Загружаем сохраненные состояния
+  const savedConditions = userStore.skinConditions
+  if (savedConditions && savedConditions.length) {
+    skinConditions.value = savedConditions
+  }
+})
+
+const updateSelectedConditions = () => {
+  const selectedConditions = skinConditions.value
+    .filter(cond => cond.checked)
+    .map(cond => cond.label)
+
+  // Сохраняем в хранилище
+  userStore.setSkinConditions(skinConditions.value)
+  userStore.setReactions(selectedConditions)
+}
+</script>
+
 <style scoped>
+/* Стили остаются такими же */
 legend {
   font-size: 20px;
   margin-bottom: 16px;
-}
-.purpose {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
 fieldset{
   border: none;
@@ -79,8 +86,8 @@ fieldset label {
   user-select: none;
 }
 fieldset input[type="checkbox"]:checked + label {
-  background-color: #000; /* Черный фон */
-  color: #fff; /* Белый текст */
+  background-color: #000;
+  color: #fff;
 }
 fieldset label:hover {
   background-color: #eee;
@@ -89,14 +96,5 @@ fieldset input {
   padding: 0;
   margin: 0;
   appearance: none;
-}
-fieldset div:checked {
-  background-color: black;
-}
-textarea {
-  height: 100px;
-  border-radius: 12px;
-  border: none;
-  padding: 12px 16px;
 }
 </style>
