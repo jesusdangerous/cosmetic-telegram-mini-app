@@ -43,7 +43,7 @@
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/auth/verify', {
+      const response = await fetch('https://cosmetic-telegram-mini-app-3.onrender.com/api/auth/verify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/auth/resend-code?email=${encodeURIComponent(email.value)}`, {
+      const response = await fetch(`https://cosmetic-telegram-mini-app-3.onrender.com/api/auth/resend-code?email=${encodeURIComponent(email.value)}`, {
         method: 'POST'
       });
 
