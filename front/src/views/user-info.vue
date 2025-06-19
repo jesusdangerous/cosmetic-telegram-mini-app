@@ -46,24 +46,7 @@
         <FormPurpose />
       </div>
 
-      <div class="brend" v-if="showBrandsSection">
-        <h2>На какие бренды косметики уже была выявлена реакция?</h2>
-        <div v-for="(item, index) in faqItems" :key="index" class="dropdown">
-          <div class="question" @click="toggleDropdown(index)">
-            <p>{{ item.question }}</p>
-            <IconButton class="dropdown-button">
-              <img
-                src="../assets/images/arrow-back.svg"
-                alt="иконка стрелочки"
-                :style="{ transform: item.isOpen ? 'rotate(90deg)' : 'rotate(270deg)' }"
-              >
-            </IconButton>
-          </div>
-          <div class="dropdown-content" v-show="item.isOpen">
-            <p>{{ item.answer }}</p>
-          </div>
-        </div>
-      </div>
+
 
       <a v-if="showSaveButton" href="/meet" class="save-link">
         <Button text="Сохранить"></Button>
@@ -90,14 +73,7 @@ const phone = ref('')
 const birthDate = ref('')
 const isAllergyModalOpen = ref(false)
 
-// FAQ данные
-const faqItems = ref([
-  {
-    question: 'Список брендов',
-    answer: 'Здесь выпадающая информация!',
-    isOpen: false
-  }
-])
+
 
 // Параметры отображения
 const showNavigation = ref(true)
