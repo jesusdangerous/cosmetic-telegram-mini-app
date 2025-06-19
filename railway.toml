@@ -1,5 +1,5 @@
 [build]
-builder = "DOCKER"
+builder = "docker"
 dockerfile = "docker-compose.yml"
 
 [deploy]
