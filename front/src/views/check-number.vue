@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <nav>
       <div>
-        <IconButton><img src='../assets/images/arrow-back.svg'></IconButton>
+        <IconButton><img src='/images/arrow-back.svg'></IconButton>
         <NavButton href="/registration" text="Назад"></NavButton>
       </div>
       <NavButton text="Пропустить"></NavButton>

@@ -1,21 +1,21 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton href="/main-page"><img src='../assets/images/arrow-back.svg'></IconButton>
+      <IconButton href="/main-page"><img src='/images/arrow-back.svg'></IconButton>
       <h1>Анализ состава</h1>
     </header>
     <main>
       <div>
         <a href="/analysis-scan">
           <p>Загрузить фото состава</p>
-          <img src="../assets/images/icon-scan-white.svg" alt="иконка скана">
+          <img src="/images/icon-scan-white.svg" alt="иконка скана">
         </a>
         <p>Загрузить фото состава косметического средства из галереи или сделать новое фото через камеру</p>
       </div>
       <div>
         <a href="/analysis-text">
           <p>Ввести состав текстом</p>
-          <img src="../assets/images/icon-text-white.svg" alt="иконка текста">
+          <img src="/images/icon-text-white.svg" alt="иконка текста">
         </a>
         <p>Ввести состав косметического средства вручную</p>
       </div>

@@ -6,7 +6,7 @@
           <h3 class="product-name">{{ product.name }}</h3>
           <p class="product-brand">{{ product.brand }}</p>
         </div>
-          <IconButton><img src='../assets/images/trashcan.svg'></IconButton>
+          <IconButton><img src='/images/trashcan.svg'></IconButton>
       </div>
 
       <div class="safety-rating">
@@ -38,7 +38,7 @@ import { computed } from 'vue';
 import IconButton from './UI/IconButton.vue';
 import Button from './UI/Button.vue';
 // Импорт изображения по умолчанию
-import defaultImage from '@/assets/images/photo-product.png';
+import defaultImage from '/images/photo-product.png';
 
 const props = defineProps({
   product: {

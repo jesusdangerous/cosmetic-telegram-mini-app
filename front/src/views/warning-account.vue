@@ -1,11 +1,11 @@
 <template>
   <body>
   <div class="page-wrapper">
-    <IconButton><img src="../assets/images/icon-cross.svg"></IconButton>
+    <IconButton><img src="/images/icon-cross.svg"></IconButton>
     <div>
       <h1>Внимание!</h1>
       <p>Для достоверного результата
-        необходимо указать реакции в 
+        необходимо указать реакции в
         личном кабинете</p>
       <Button text="Перейти в личный кабинет"></Button>
     </div>

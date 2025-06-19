@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton href="/analysis"><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton href="/analysis"><img src="/images/arrow-back.svg"></IconButton>
       <h1>Результаты анализа</h1>
     </header>
     <main>
@@ -9,7 +9,7 @@
         <div class="product-header">
           <div class="product-category">
             <p>Шампунь для волос</p>
-            <IconButton><img src="../assets/images/icon-like.svg"></IconButton>
+            <IconButton><img src="/images/icon-like.svg"></IconButton>
           </div>
           <div class="product-name">
             <h2>HUMAN BEAUTY EVOLUTION DAILY USE</h2>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="product-info">
-          <img src="../assets/images/photo-product-result.svg">
+          <img src="/images/photo-product-result.svg">
           <div class="product-info-text">
             <p>Безопасность {{ analysisResult.safetyScore }}%</p>
             <div>
@@ -45,7 +45,7 @@
         <div class="components">
           <h2>Происхождение компонентов</h2>
           <div>
-            <img src="../assets/images/diagramm-components.svg">
+            <img src="/images/diagramm-components.svg">
             <div class="legent">
               <div>
                 <p class="legent-item legent-item__natural"></p>
@@ -75,7 +75,7 @@
           <div class="components-info-view" @click="showAllComponents = !showAllComponents">
             <p>{{ showAllComponents ? 'Скрыть' : 'Показать все' }} компоненты</p>
             <IconButton>
-              <img src="../assets/images/arrow-back.svg" :style="{transform: showAllComponents ? 'rotate(90deg)' : 'rotate(270deg)'}">
+              <img src="/images/arrow-back.svg" :style="{transform: showAllComponents ? 'rotate(90deg)' : 'rotate(270deg)'}">
             </IconButton>
           </div>
         </div>
@@ -93,11 +93,11 @@
         <div class="reviews">
           <div class="reviews-header">
             <h2>Отзывы</h2>
-            <IconButton href="/reviews"><img src="../assets/images/arrow-back.svg"></IconButton>
+            <IconButton href="/reviews"><img src="/images/arrow-back.svg"></IconButton>
           </div>
           <div class="reviews-info">
             <div>
-              <img src="../assets/images/reviews-star.svg">
+              <img src="/images/reviews-star.svg">
               <p>4,3</p>
             </div>
             <span>14 оценок</span>
@@ -135,7 +135,7 @@ import { useRouter } from 'vue-router';
 import Footer from '@/components/Footer.vue';
 import IconButton from '@/components/UI/IconButton.vue';
 import CardMini from '@/components/CardMini.vue';
-import photoProduct from '../assets/images/photo-product.svg';
+import photoProduct from '/images/photo-product.svg';
 
 const router = useRouter();
 const showAllComponents = ref(false);

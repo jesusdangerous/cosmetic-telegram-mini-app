@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <header>
       <IconButton @click="goBack">
-        <img src="@/assets/images/arrow-back.svg" alt="Назад">
+        <img src="/images/arrow-back.svg" alt="Назад">
       </IconButton>
       <h1>Поиск</h1>
     </header>
@@ -10,7 +10,7 @@
       <div class="search">
         <InputSearch width="100%" placeholder="Поиск" />
         <IconButton>
-          <img src="@/assets/images/icon-parameters.svg" alt="Параметры">
+          <img src="/images/icon-parameters.svg" alt="Параметры">
         </IconButton>
       </div>
       <div class="ps">
@@ -45,7 +45,7 @@ const experts = ref([
     position: 'Врач-дерматолог',
     experience: '23 года',
     telegram: 'Z1nn4',
-    imageUrl: new URL('@/assets/images/expert-1.jpg', import.meta.url).href,
+    imageUrl: new URL('/images/expert-1.jpg', import.meta.url).href,
     bioItems: [
       'Разработал уникальную методику терапии экземы',
       '85% успешных случаев лечения',
@@ -58,7 +58,7 @@ const experts = ref([
     position: 'Косметолог-эстетист',
     experience: '15 лет',
     telegram: 'veatmanz',
-    imageUrl: new URL('@/assets/images/expert-2.jpg', import.meta.url).href,
+    imageUrl: new URL('/images/expert-2.jpg', import.meta.url).href,
     bioItems: [
       'Специалист по anti-age программам',
       'Эксперт по аппаратной косметологии',
@@ -71,7 +71,7 @@ const experts = ref([
     position: 'Трихолог',
     experience: '12 лет',
     telegram: 'ljopy',
-    imageUrl: new URL('@/assets/images/expert-3.jpg', import.meta.url).href,
+    imageUrl: new URL('/images/expert-3.jpg', import.meta.url).href,
     bioItems: [
       'Эксперт по лечению выпадения волос',
       'Специалист по проблемам кожи головы',
@@ -84,7 +84,7 @@ const experts = ref([
     position: 'Визажист',
     experience: '8 лет',
     telegram: 'whqsfasagd',
-    imageUrl: new URL('@/assets/images/expert-4.jpg', import.meta.url).href,
+    imageUrl: new URL('/images/expert-4.jpg', import.meta.url).href,
     bioItems: [
       'Профессиональный макияж для любых случаев',
       'Коррекция черт лица',
@@ -97,7 +97,7 @@ const experts = ref([
     position: 'Эстетист',
     experience: '10 лет',
     telegram: 'LeB4uK',
-    imageUrl: new URL('@/assets/images/expert-5.jpg', import.meta.url).href,
+    imageUrl: new URL('/images/expert-5.jpg', import.meta.url).href,
     bioItems: [
       'Специалист по уходу за проблемной кожей',
       'Эксперт по химическим пилингам',

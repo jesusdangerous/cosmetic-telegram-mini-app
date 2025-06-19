@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <header>
       <IconButton href="/main-page">
-        <img src="@/assets/images/arrow-back.svg" alt="Назад" />
+        <img src="/images/arrow-back.svg" alt="Назад" />
       </IconButton>
       <h1>Избранное</h1>
     </header>
@@ -26,8 +26,8 @@ import InputSearch from '@/components/InputSearch.vue';
 import CardMax from '@/components/CardMax.vue';
 import Footer from '@/components/Footer.vue'
 // Импорт картинок
-import photoProduct from '../assets/images/photo-product.png';
-import photoProduct2 from '../assets/images/photo-product-2.png'
+import photoProduct from '/images/photo-product.png';
+import photoProduct2 from '/images/photo-product-2.png'
 const products = [
   {
     name: 'Крем для лица',

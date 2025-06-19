@@ -3,7 +3,7 @@
     <header>
       <div class="welcome">
         <div class="welcome_user">
-          <img src="../assets/images/photo-user.svg" alt="Фото пользователя" />
+          <img src="/images/photo-user.svg" alt="Фото пользователя" />
         </div>
         <div class="welcome_hi">
           <h2>Привет, {{ userName }}!</h2>
@@ -14,7 +14,7 @@
       <div class="search">
         <InputSearch />
         <IconButton>
-          <img src="../assets/images/icon-parameters.svg" alt="Параметры" />
+          <img src="/images/icon-parameters.svg" alt="Параметры" />
         </IconButton>
       </div>
     </header>
@@ -25,7 +25,7 @@
         <div class="action_check-product">
           <p>Проверить средство</p>
           <IconButton href="/analysis" class="icon-arrow">
-            <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
+            <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>
 
@@ -33,7 +33,7 @@
           <div class="action_other-compare">
             <p>Сравнить составы</p>
             <IconButton href="/analysis-compare" class="icon-arrow">
-              <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
+              <img src="/images/arrow-right.svg" alt="Иконка стрелочки" />
             </IconButton>
           </div>
 
@@ -41,14 +41,14 @@
             <div class="action_other-card">
               <p>Консультация у эксперта</p>
               <IconButton href="/experts" class="icon-arrow">
-                <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
+                <img src="/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
             </div>
 
             <div class="action_other-card">
               <p>Избранное</p>
               <IconButton href="/favourites" class="icon-arrow">
-                <img src="../assets/images/arrow-right.svg" alt="Иконка стрелочки" />
+                <img src="/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
             </div>
           </div>
@@ -59,7 +59,7 @@
         <div class="block_header">
           <h2>Наши эксперты</h2>
           <IconButton href="/experts">
-            <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
+            <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>
         <ul>
@@ -79,7 +79,7 @@
         <div class="block_header">
           <h2>Безопасная косметика</h2>
           <IconButton href="/safety-cosmetics">
-            <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
+            <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>
         <div class="safety-cosmetic">
@@ -101,7 +101,7 @@
         <div class="block_header">
           <h2>Вы проверяли</h2>
           <IconButton href="/favourites">
-            <img src="../assets/images/arrow-back.svg" alt="Иконка стрелочки" />
+            <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
         </div>
         <ul>
@@ -128,7 +128,7 @@ import IconButton from '@/components/UI/IconButton.vue'
 import InputSearch from '@/components/InputSearch.vue'
 import Footer from '@/components/Footer.vue'
 import CardMini from '@/components/CardMini.vue'
-import photoProduct from '@/assets/images/photo-product.svg'
+import photoProduct from '/images/photo-product.svg'
 
 const userStore = useUserStore()
 const userName = computed(() => userStore.name || 'Гость')
@@ -148,7 +148,7 @@ const products = [
 .page-wrapper {
   width: 92%;
   padding: 20px 15px 160px;
-  background-image: url("../assets/images/background-main.png");
+  background-image: url("/images/background-main.png");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -339,7 +339,7 @@ main h1 {
 }
 
 .experts_photo {
-  background-image: url("../assets/images/expert-1.jpg");
+  background-image: url("/images/expert-1.jpg");
   height: 174px;
   background-repeat: no-repeat;
   background-size: contain;

@@ -1,7 +1,7 @@
 <template>
   <div class="product-card">
     <div class="product-btn">
-      <IconButton><img src='../assets/images/icon-like.svg' alt="иконка сердечка"></IconButton>
+      <IconButton><img src='/images/icon-like.svg' alt="иконка сердечка"></IconButton>
     </div>
     <div class="product-image">
       <img :src="image" :alt="altText" />

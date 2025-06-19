@@ -1,11 +1,11 @@
 <template>
   <footer>
     <nav>
-      <a href="/main-page"><img src="../assets/images/icon-home.svg"></a>
-      <a href="/experts"><img src="../assets/images/icon-comment.svg"></a>
-      <a href="/analysis"><img src="../assets/images/icon-scan.svg"></a>
-      <a href="/favourites"><img src="../assets/images/icon-like.svg"></a>
-      <a href="/user-account"><img src="../assets/images/icon-profile.svg"></a>
+      <a href="/main-page"><img src="/images/icon-home.svg"></a>
+      <a href="/experts"><img src="/images/icon-comment.svg"></a>
+      <a href="/analysis"><img src="/images/icon-scan.svg"></a>
+      <a href="/favourites"><img src="/images/icon-like.svg"></a>
+      <a href="/user-account"><img src="/images/icon-profile.svg"></a>
     </nav>
   </footer>
 </template>

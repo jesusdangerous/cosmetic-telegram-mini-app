@@ -37,8 +37,8 @@
 
 <script setup>
 import { computed } from 'vue'
-import filledStar from '../assets/images/reviews-star.svg'
-import emptyStar from '../assets/images/reviews-star-empty.svg'
+import filledStar from '/images/reviews-star.svg'
+import emptyStar from '/images/reviews-star-empty.svg'
 
 const props = defineProps({
   review: Object,

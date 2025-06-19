@@ -1,10 +1,10 @@
 <template>
   <div class="chat">
     <div>
-      <img  class="photo-expert" src="../assets/images/expert-1.jpg">
+      <img  class="photo-expert" src="/images/expert-1.jpg">
       <p>Дмитрий</p>
     </div>
-    <IconButton><img class="chat-button" src="../assets/images/arrow-back.svg"></IconButton>
+    <IconButton><img class="chat-button" src="/images/arrow-back.svg"></IconButton>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton href="/main-page"><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton href="/main-page"><img src="/images/arrow-back.svg"></IconButton>
       <h1>Сравнение составов</h1>
     </header>
     <main>
@@ -13,13 +13,13 @@
         <div>
           <button @click="openGallery(1)" class="button" :class="{'button__ready': firstComposition.image, 'button__unready': !firstComposition.image}">
             <p>Фото состава</p>
-            <img v-if="firstComposition.image" src="../assets/images/icon-check.svg" alt="иконка галочки">
-            <img v-else src="../assets/images/icon-parameters.svg" alt="иконка параметров">
+            <img v-if="firstComposition.image" src="/images/icon-check.svg" alt="иконка галочки">
+            <img v-else src="/images/icon-parameters.svg" alt="иконка параметров">
           </button>
           <button @click="showTextInput(1)" class="button" :class="{'button__ready': firstComposition.text, 'button__unready': !firstComposition.text}">
             <p>Текст состава</p>
-            <img v-if="firstComposition.text" src="../assets/images/icon-check.svg" alt="иконка галочки">
-            <img v-else src="../assets/images/icon-text.svg" alt="иконка текста">
+            <img v-if="firstComposition.text" src="/images/icon-check.svg" alt="иконка галочки">
+            <img v-else src="/images/icon-text.svg" alt="иконка текста">
           </button>
         </div>
 
@@ -27,13 +27,13 @@
         <div>
           <button @click="openGallery(2)" class="button" :class="{'button__ready': secondComposition.image, 'button__unready': !secondComposition.image}">
             <p>Фото состава</p>
-            <img v-if="secondComposition.image" src="../assets/images/icon-check.svg" alt="иконка галочки">
-            <img v-else src="../assets/images/icon-parameters.svg" alt="иконка параметров">
+            <img v-if="secondComposition.image" src="/images/icon-check.svg" alt="иконка галочки">
+            <img v-else src="/images/icon-parameters.svg" alt="иконка параметров">
           </button>
           <button @click="showTextInput(2)" class="button" :class="{'button__ready': secondComposition.text, 'button__unready': !secondComposition.text}">
             <p>Текст состава</p>
-            <img v-if="secondComposition.text" src="../assets/images/icon-check.svg" alt="иконка галочки">
-            <img v-else src="../assets/images/icon-text.svg" alt="иконка текста">
+            <img v-if="secondComposition.text" src="/images/icon-check.svg" alt="иконка галочки">
+            <img v-else src="/images/icon-text.svg" alt="иконка текста">
           </button>
         </div>
 

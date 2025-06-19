@@ -4,10 +4,10 @@
       <video ref="video" autoplay playsinline class="camera-view"></video>
       <div class="camera-controls">
         <button @click="capture" class="capture-button">
-          <img src="../assets/images/icon-camera.svg" alt="Снять фото">
+          <img src="/images/icon-camera.svg" alt="Снять фото">
         </button>
         <button @click="closeCamera" class="close-button">
-          <img src="../assets/images/icon-close.svg" alt="Закрыть камеру">
+          <img src="/images/icon-close.svg" alt="Закрыть камеру">
         </button>
       </div>
     </div>

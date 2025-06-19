@@ -1,7 +1,7 @@
 <template>
   <body>
     <div class="page-wrapper">
-        <IconButton><img src="../assets/images/icon-cross.svg"></IconButton>
+        <IconButton><img src="/images/icon-cross.svg"></IconButton>
       <div>
         <h1>Внимание!</h1>
         <p>Удалить Belka mineral из избранного?</p>

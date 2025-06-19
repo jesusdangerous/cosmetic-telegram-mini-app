@@ -10,14 +10,14 @@
     </teleport>
 
     <header>
-      <IconButton href="/analysis-result"><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton href="/analysis-result"><img src="/images/arrow-back.svg"></IconButton>
       <h1>Отзывы</h1>
     </header>
 
     <main>
       <div class="reviews-info">
         <div>
-          <img src="../assets/images/reviews-star.svg">
+          <img src="/images/reviews-star.svg">
           <p>{{ averageRating.toFixed(1) }}</p>
         </div>
         <span>{{ reviews.length }} {{ reviewCountText }}</span>
@@ -25,7 +25,7 @@
 
       <div class="reviews-parametrs">
         <button @click="openSortModal">
-          <img src="../assets/images/icon-arrow-up-down.svg">
+          <img src="/images/icon-arrow-up-down.svg">
           <p>{{ sortOption === 'newest' ? 'Новые' : 'Старые' }}</p>
         </button>
         <button
@@ -56,7 +56,7 @@ import IconButton from '@/components/UI/IconButton.vue'
 import Review from '@/components/Review.vue'
 import SortReviews from './sort-reviews.vue'
 import NewReviewModal from './NewReviewModal.vue'
-import photoUser from '@/assets/images/photo-user-1.svg'
+import photoUser from '/images/photo-user-1.svg'
 
 const { cookies } = useCookies()
 const COOKIE_NAME = 'product_reviews_v3'

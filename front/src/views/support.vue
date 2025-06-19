@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton href="user-account"><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton href="user-account"><img src="/images/arrow-back.svg"></IconButton>
       <h1>Справка и поддержка</h1>
     </header>
     <main>
@@ -12,7 +12,7 @@
             <p>{{ item.question }}</p>
             <IconButton class="dropdown-button">
               <img
-                src="../assets/images/arrow-back.svg"
+                src="/images/arrow-back.svg"
                 alt="иконка стрелочки"
                 :style="{ transform: item.isOpen ? 'rotate(90deg)' : 'rotate(270deg)' }"
               >
@@ -26,7 +26,7 @@
       <article>
         <div class="politics">
           <h3>Политика конфиденциальности</h3>
-          <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
+          <IconButton><img src="/images/arrow-back.svg"></IconButton>
         </div>
         <div class="support">
           <h3>Техподдержка</h3>

@@ -1,14 +1,14 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton @click="goBack"><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton @click="goBack"><img src="/images/arrow-back.svg"></IconButton>
       <h1>Личный кабинет</h1>
     </header>
     <main>
       <article>
         <div class="data-user">
           <div>
-            <img src="../assets/images/photo-user.svg">
+            <img src="/images/photo-user.svg">
             <div>
               <h2 v-if="!editMode">{{ userName || 'Пользователь' }}</h2>
               <input v-else v-model="tempName" type="text" class="name-input">
@@ -36,7 +36,7 @@
 
         <div @click="goToHistoryAnalysis" class="clickable-section">
           <p style="font-weight:bold;">История анализа</p>
-          <IconButton><img class="arrow" src="../assets/images/arrow-back.svg"></IconButton>
+          <IconButton><img class="arrow" src="/images/arrow-back.svg"></IconButton>
         </div>
 
         <div class="reactions-section">
@@ -65,12 +65,12 @@
 
         <div class="help clickable-section" @click="goToSupport">
           <p>Справка и поддержка</p>
-          <IconButton><img class="arrow" src="../assets/images/arrow-back.svg"></IconButton>
+          <IconButton><img class="arrow" src="/images/arrow-back.svg"></IconButton>
         </div>
 
         <div class="exit clickable-section" @click="logout">
           <p>Выйти</p>
-          <IconButton><img src="../assets/images/icon-exit.svg"></IconButton>
+          <IconButton><img src="/images/icon-exit.svg"></IconButton>
         </div>
       </article>
     </main>

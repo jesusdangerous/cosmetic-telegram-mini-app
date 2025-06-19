@@ -2,7 +2,7 @@
 <template>
   <div>
     <label>
-      <img class="icon-search" src="../assets/images/icon-search.svg" alt="иконка лупы" />
+      <img class="icon-search" src="/images/icon-search.svg" alt="иконка лупы" />
       <Input
         :placeholder="placeholder"
         :inputStyle="{ width: width }"

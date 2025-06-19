@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <header>
       <IconButton href="main-page">
-        <img src="../assets/images/arrow-back.svg" />
+        <img src="/images/arrow-back.svg" />
       </IconButton>
       <h1>Безопасная косметика</h1>
     </header>
@@ -32,8 +32,8 @@ import InputSearch from '@/components/InputSearch.vue'
 import IconButton from '@/components/UI/IconButton.vue'
 import CardMini from '@/components/CardMini.vue'
 import { ref } from 'vue'
-import photoTon1 from '@/assets/images/ton1.png';
-import photoTon2 from '@/assets/images/ton2.png';
+import photoTon1 from '/images/ton1.png';
+import photoTon2 from '/images/ton2.png';
 
 const products = ref([
   {

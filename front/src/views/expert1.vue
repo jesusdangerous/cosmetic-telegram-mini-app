@@ -1,12 +1,12 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton href="/experts"><img src="../assets/images/arrow-back.svg"></IconButton>
+      <IconButton href="/experts"><img src="/images/arrow-back.svg"></IconButton>
       <h1>Эксперт</h1>
     </header>
     <main>
       <div class="expert-info">
-        <img src="../assets/images/expert-1.jpg">
+        <img src="/images/expert-1.jpg">
         <div>
           <p>Дмитрий</p>
           <span>Врач-дерматолог</span>
@@ -19,7 +19,7 @@
             <p>Документы</p>
             <span>Проверены</span>
           </div>
-          <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
+          <IconButton><img src="/images/arrow-back.svg"></IconButton>
         </div>
       </div>
       <div class="expert-job">
@@ -45,7 +45,7 @@
       </div>
       <div class="expert-other">
         <p>Найти другого специалиста</p>
-        <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
+        <IconButton><img src="/images/arrow-back.svg"></IconButton>
       </div>
     </main>
     <Footer></Footer>

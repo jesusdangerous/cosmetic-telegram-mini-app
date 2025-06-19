@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <IconButton href="/analysis"><img src='../assets/images/arrow-back.svg'></IconButton>
+      <IconButton href="/analysis"><img src='/images/arrow-back.svg'></IconButton>
       <h1>Анализ состава</h1>
     </header>
     <main>
@@ -19,11 +19,11 @@
       <div class="buttons">
         <button @click="openGallery">
           <p>Из галереи</p>
-          <IconButton><img src="../assets/images/icon-clip.svg"></IconButton>
+          <IconButton><img src="/images/icon-clip.svg"></IconButton>
         </button>
         <button @click="openCamera">
           <p>Открыть камеру</p>
-          <IconButton><img src="../assets/images/icon-scan-black.svg"></IconButton>
+          <IconButton><img src="/images/icon-scan-black.svg"></IconButton>
         </button>
       </div>
       <div>
