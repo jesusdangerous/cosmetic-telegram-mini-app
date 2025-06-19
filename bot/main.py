@@ -130,7 +130,7 @@ def get_mini_app_keyboard():
     return ReplyKeyboardMarkup(resize_keyboard=True).add(
         KeyboardButton(
             text="🔍 Проверить косметику на аллергены",
-            web_app=WebAppInfo(url="https://cosmetic-telegram-mini-app.onrender.com/main-page")
+            web_app=WebAppInfo(url="https://cosmetic-telegram-mini-app.onrender.com/registration")
         )
     )
 
