@@ -13,7 +13,9 @@
         <h2>Другое:</h2>
         <textarea placeholder="Аллергены, которых нет в нашем списке"></textarea>
       </div>
-      <Button text="Сохранить"></Button>
+      <div class="button-wrapper">
+        <a href="/main-page"><Button text="Сохранить"></Button></a>
+      </div>
     </main>
   </div>
 </template>
@@ -21,9 +23,7 @@
 <script setup>
 import FormAllergy from '@/components/FormAllergy.vue';
 import Button from '@/components/UI/Button.vue';
-
 </script>
-
 
 <style scoped>
 .page-wrapper {
@@ -32,32 +32,43 @@ import Button from '@/components/UI/Button.vue';
   gap: 32px;
   width: 92%;
   padding: 20px 0 372px;
+  margin: 0 auto;
 }
-nav{
+
+nav {
   display: flex;
   justify-content: flex-end;
 }
+
 main {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
+
 .other h2 {
   font-size: 20px;
 }
+
 textarea {
   padding: 12px 16px;
   border: none;
   border-radius: 12px;
   height: 100px;
+  width: 100%;
+  box-sizing: border-box;
 }
+
 .other {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.page-wrapper a {
-  margin-left: 95%;
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
 }
 
 header {
@@ -68,10 +79,12 @@ header {
 
 h1 {
   text-align: center;
+  margin: 0;
 }
 
 header p {
   text-align: center;
   color: #545454;
+  margin: 0;
 }
 </style>

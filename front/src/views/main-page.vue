@@ -20,7 +20,7 @@
     </header>
 
     <main>
-      <h1>Позаботься о своей коже уже сегодня!</h1>
+      <h1>Позаботься о своей коже уже сегодня!</h1>
       <article class="actions">
         <div class="action_check-product">
           <p>Проверить средство</p>
@@ -83,18 +83,19 @@
           </IconButton>
         </div>
         <div class="safety-cosmetic">
-          <a href="#">Тональные крема</a>
-          <a href="#">Шампуни</a>
-          <a href="#">Хайлайтеры</a>
-          <a href="#">Крема</a>
-          <a href="#">Подводки</a>
-          <a href="#">Помады</a>
-          <a href="#">Глиттеры</a>
-          <a href="#">Бронзеры</a>
-          <a href="#">Пудры</a>
-          <a href="#">Румяна</a>
+          <router-link to="/safety-cosmetics-foundation-cream">Тональные крема</router-link>
+          <router-link to="/safety-cosmetics-shampoo">Шампуни</router-link>
+          <router-link to="/safety-cosmetics-highlighter">Хайлайтеры</router-link>
+          <router-link to="/safety-cosmetics-cream">Крема</router-link>
+          <router-link to="/safety-cosmetics-eyeliners">Подводки</router-link>
+          <router-link to="/safety-cosmetics-lipstick">Помады</router-link>
+          <router-link to="/safety-cosmetics-glitters">Глиттеры</router-link>
+          <router-link to="/safety-cosmetics-bronzer">Бронзеры</router-link>
+          <router-link to="/safety-cosmetics-powder">Пудры</router-link>
+          <router-link to="/safety-cosmetics-blush">Румяна</router-link>
         </div>
       </article>
+
 
       <article class="memory">
         <div class="block_header">
@@ -121,7 +122,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useUserStore } from '@/stores/user'
 import IconButton from '@/components/UI/IconButton.vue'
 import InputSearch from '@/components/InputSearch.vue'
@@ -132,7 +133,7 @@ import photoProduct from '@/assets/images/photo-product.svg'
 const userStore = useUserStore()
 const userName = computed(() => userStore.name || 'Гость')
 
-const products = ref([
+const products = [
   {
     image: photoProduct,
     alt: 'Крем для рук и тела LABORATORIUM Вишневый пирог',
@@ -140,7 +141,7 @@ const products = ref([
     brand: 'LABORATORIUM',
     description: 'Вишневый пирог',
   },
-])
+]
 </script>
 
 <style scoped>
@@ -424,5 +425,25 @@ main h1 {
   align-items: center;
   box-sizing: border-box;
   width: 53% !important;
+}
+.safety-cosmetic a {
+  color: rgba(19, 19, 19, 1);
+  background-color: rgba(251, 251, 251, 1);
+  border-radius: 12px;
+  padding: 8px 12px;
+  text-decoration: none;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.safety-cosmetic a:hover {
+  background-color: #e0e0e0;
+}
+
+.safety-cosmetic a:last-child {
+  margin-right: 0;
+  margin-bottom: 0;
 }
 </style>
