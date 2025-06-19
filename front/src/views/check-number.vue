@@ -58,7 +58,7 @@
 
       if (data.success) {
         alert('Регистрация успешно завершена!');
-        router.push('/main-page');
+        router.push('/user-info');
       } else {
         alert(data.message || 'Ошибка при проверке кода');
       }
