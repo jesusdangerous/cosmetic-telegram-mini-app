@@ -9,29 +9,41 @@
         <p>Загрузите фото состава косметического средства или вставьте его текстом.</p>
       </div>
       <div class="compare">
-          <h2>1 косметическое средство</h2>
-          <div>
-            <a href="/analysis-scan" class="button button__ready">
-              <p>Фото состава</p>
-              <img src="../assets/images/icon-check.svg" alt="икнока галочки">
-            </a>
-            <a href="/analysis-text" class="button button__unready">
-              <p>Текст состава</p>
-              <img src="../assets/images/icon-text.svg" alt="икнока текста">
-            </a>
-          </div>
+        <h2>1 косметическое средство</h2>
+        <div>
+          <button @click="openGallery(1)" class="button" :class="{'button__ready': firstComposition.image, 'button__unready': !firstComposition.image}">
+            <p>Фото состава</p>
+            <img v-if="firstComposition.image" src="../assets/images/icon-check.svg" alt="иконка галочки">
+            <img v-else src="../assets/images/icon-parameters.svg" alt="иконка параметров">
+          </button>
+          <button @click="showTextInput(1)" class="button" :class="{'button__ready': firstComposition.text, 'button__unready': !firstComposition.text}">
+            <p>Текст состава</p>
+            <img v-if="firstComposition.text" src="../assets/images/icon-check.svg" alt="иконка галочки">
+            <img v-else src="../assets/images/icon-text.svg" alt="иконка текста">
+          </button>
+        </div>
 
-          <h2>1 косметическое средство</h2>
-          <div>
-              <a href="/analysis-scan" class="button button__unready">
-                <p>Фото состава</p>
-                <img src="../assets/images/icon-parameters.svg" alt="икнока параметров">
-              </a>
-              <a href="/analysis-text" class="button button__ready">
-                <p>Текст состава</p>
-                <img src="../assets/images/icon-check.svg" alt="икнока галочки">
-              </a>
-          </div>
+        <h2>2 косметическое средство</h2>
+        <div>
+          <button @click="openGallery(2)" class="button" :class="{'button__ready': secondComposition.image, 'button__unready': !secondComposition.image}">
+            <p>Фото состава</p>
+            <img v-if="secondComposition.image" src="../assets/images/icon-check.svg" alt="иконка галочки">
+            <img v-else src="../assets/images/icon-parameters.svg" alt="иконка параметров">
+          </button>
+          <button @click="showTextInput(2)" class="button" :class="{'button__ready': secondComposition.text, 'button__unready': !secondComposition.text}">
+            <p>Текст состава</p>
+            <img v-if="secondComposition.text" src="../assets/images/icon-check.svg" alt="иконка галочки">
+            <img v-else src="../assets/images/icon-text.svg" alt="иконка текста">
+          </button>
+        </div>
+
+        <button
+          @click="compareCompositions"
+          class="compare-button"
+          :disabled="!canCompare"
+        >
+          Сравнить составы
+        </button>
       </div>
     </main>
     <Footer></Footer>
@@ -41,9 +53,97 @@
 <script setup>
   import IconButton from '@/components/UI/IconButton.vue';
   import Footer from '@/components/Footer.vue';
+    import { ref, computed } from 'vue';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
+    const firstComposition = ref({ image: null, text: '' });
+    const secondComposition = ref({ image: null, text: '' });
+
+    const canCompare = computed(() => {
+    return (firstComposition.value.image || firstComposition.value.text) &&
+    (secondComposition.value.image || secondComposition.value.text);
+  });
+
+    const openGallery = async (compositionNumber) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+    const response = await fetch('/api/analysis/image', {
+    method: 'POST',
+    body: formData
+  });
+    const result = await response.json();
+
+    if (compositionNumber === 1) {
+    firstComposition.value = { image: result, text: '' };
+  } else {
+    secondComposition.value = { image: result, text: '' };
+  }
+  } catch (error) {
+    console.error('Error uploading image:', error);
+  }
+  }
+  };
+    input.click();
+  };
+
+    const showTextInput = (compositionNumber) => {
+    const text = prompt('Введите состав косметического средства:');
+    if (text) {
+    if (compositionNumber === 1) {
+    firstComposition.value = { image: null, text };
+  } else {
+    secondComposition.value = { image: null, text };
+  }
+  }
+  };
+
+    const compareCompositions = async () => {
+    try {
+    const response = await fetch('/api/analysis/compare', {
+    method: 'POST',
+    headers: {
+    'Content-Type': 'application/json',
+  },
+    body: JSON.stringify({
+    firstComposition: firstComposition.value.text || firstComposition.value.image.compositionText,
+    secondComposition: secondComposition.value.text || secondComposition.value.image.compositionText
+  })
+  });
+    const result = await response.json();
+    router.push({
+    path: '/analysis-result',
+    state: { comparisonResult: result }
+  });
+  } catch (error) {
+    console.error('Error comparing compositions:', error);
+  }
+  };
 </script>
 
 <style scoped>
+.compare-button {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #131313;
+  color: white;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.compare-button:disabled {
+  background-color: #ADADAD;
+  cursor: not-allowed;
+}
 
   .compare {
     display: flex;

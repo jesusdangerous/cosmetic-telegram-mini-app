@@ -12,93 +12,84 @@
             <IconButton><img src="../assets/images/icon-like.svg"></IconButton>
           </div>
           <div class="product-name">
-            <h2>
-              HUMAN BEAUTY EVOLUTION DAILY USE
-            </h2>
+            <h2>HUMAN BEAUTY EVOLUTION DAILY USE</h2>
           </div>
         </div>
+
         <div class="product-info">
           <img src="../assets/images/photo-product-result.svg">
           <div class="product-info-text">
-            <p>Безопасность 89%</p>
+            <p>Безопасность {{ analysisResult.safetyScore }}%</p>
             <div>
               <div>
                 <p>Область применения:</p>
-                <span>Волосы</span>
+                <span>{{ analysisResult.usageRecommendations.join(', ') }}</span>
               </div>
-              <div>
+              <div v-if="analysisResult.skinTypeRecommendations.length">
                 <p>Тип волос:</p>
-                <span>Для всех типов волос</span>
+                <span>{{ analysisResult.skinTypeRecommendations.join(', ') }}</span>
               </div>
             </div>
           </div>
         </div>
+
         <div class="text">
-          <p>Безопасность состоит из аллергичности, токсичности
-             и экологичности компонентов. В случае, когда безопасность
-             составляет меньше 60%, то косметическое средство
-             не является безопасным.</p>
+          <p>Безопасность состоит из аллергичности, токсичности и экологичности компонентов. В случае, когда безопасность составляет меньше 60%, то косметическое средство не является безопасным.</p>
         </div>
+
         <div class="structure">
           <h2>Состав</h2>
-          <p>Aqua, Sodium Laureth Sulfate, Sodium Chloride, Coco Glucoside,
-            Cocamidopropyl Betaine, Cocamide DEA, Polyquaternium-7, Sodium Lactate,
-            Glycerin, Ethylenediaminetetraacetic acid, Hydroxypropyltrimonium hydrolyzed
-            vegetable protein, Guar hydroxypropyltrimonium chloride, Olea Europaea
-            (Olive) extract, Fragrance, Methylchloroisothiazolinone.</p>
+          <p>{{ analysisResult.components.map(c => c.name).join(', ') }}</p>
         </div>
+
         <div class="components">
-          <h2>Проискождение компонентов</h2>
+          <h2>Происхождение компонентов</h2>
           <div>
             <img src="../assets/images/diagramm-components.svg">
             <div class="legent">
               <div>
                 <p class="legent-item legent-item__natural"></p>
-                <p>Природное</p>
+                <p>Природное {{ analysisResult.naturalPercentage }}%</p>
               </div>
               <div>
                 <span class="legent-item legent-item__chemical"></span>
-                <p>Химическое</p>
+                <p>Химическое {{ analysisResult.chemicalPercentage }}%</p>
               </div>
             </div>
           </div>
         </div>
+
         <div class="components-info">
           <h2>О компонентах (INCI)</h2>
-          <div class="components-info-main">
-            <span class="components-info-safety">
-              Безопсано
+          <div class="components-info-main" v-for="(component, index) in displayedComponents" :key="index">
+            <span class="components-info-safety" :style="{backgroundColor: getSafetyColor(component.safety)}">
+              {{ component.safety }}
             </span>
-            <p>Arginine — действующее вещество</p>
-            <p>Разглаживает волос, хорошо влияет на корни волос</p>
+            <p>{{ component.name }} — {{ component.type }}</p>
+            <p>{{ component.benefits.join(', ') }}</p>
             <div class="components-info-facts">
-              <p>Аминокислота</p>
-              <p>Заживляет</p>
-              <p>Очищает кожу</p>
-              <p>Укрепляет сосуды</p>
+              <p v-for="(fact, i) in component.facts" :key="i">{{ fact }}</p>
             </div>
           </div>
-          <div class="components-info-view">
-            <p>Показать все компоненты</p>
-            <IconButton><img src="../assets/images/arrow-back.svg"></IconButton>
+
+          <div class="components-info-view" @click="showAllComponents = !showAllComponents">
+            <p>{{ showAllComponents ? 'Скрыть' : 'Показать все' }} компоненты</p>
+            <IconButton>
+              <img src="../assets/images/arrow-back.svg" :style="{transform: showAllComponents ? 'rotate(90deg)' : 'rotate(270deg)'}">
+            </IconButton>
           </div>
-          <div class="recommendation">
-            <h2>Рекомендации по использованию</h2>
-            <div class="recommendation-items">
-              <p class="recommendation-items-ps">Подходит тем, кто нуждается в следующем:</p>
-              <div>
-                <p>Очищение</p>
-                <p>Увлажнение кожи</p>
-                <p>Антисептическое действие</p>
-                <p>Смягчение кожи</p>
-                <p>Успокоение кожи</p>
-                <p>Улучшение структуры волос</p>
-                <p>Лечение повреждений</p>
-                <p>Кондиционирование волос</p>
-              </div>
+        </div>
+
+        <div class="recommendation">
+          <h2>Рекомендации по использованию</h2>
+          <div class="recommendation-items">
+            <p class="recommendation-items-ps">Подходит тем, кто нуждается в следующем:</p>
+            <div>
+              <p v-for="(recommendation, idx) in analysisResult.usageRecommendations" :key="idx">{{ recommendation }}</p>
             </div>
           </div>
         </div>
+
         <div class="reviews">
           <div class="reviews-header">
             <h2>Отзывы</h2>
@@ -112,6 +103,7 @@
             <span>14 оценок</span>
           </div>
         </div>
+
         <div class="similar">
           <h1>Аналогичные продукты</h1>
           <ul class="cards">
@@ -126,6 +118,7 @@
             </li>
           </ul>
         </div>
+
         <div class="buttons">
           <a href="/experts" class="buttons-item buttons__consult">Консультация у эксперта</a>
           <a href="/main-page" class="buttons-item buttons__main">На главную</a>
@@ -137,20 +130,76 @@
 </template>
 
 <script setup>
-  import Footer from '@/components/Footer.vue';
-  import IconButton from '@/components/UI/IconButton.vue';
-  import CardMini from '@/components/CardMini.vue';
-  import photoProduct from '../assets/images/photo-product.svg'
-  import { ref } from 'vue'
-  const products = ref([
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import Footer from '@/components/Footer.vue';
+import IconButton from '@/components/UI/IconButton.vue';
+import CardMini from '@/components/CardMini.vue';
+import photoProduct from '../assets/images/photo-product.svg';
+
+const router = useRouter();
+const showAllComponents = ref(false);
+const products = ref([
   {
     image: photoProduct,
     alt: 'Крем для рук и тела LABORATORIUM Вишневый пирог',
     title: 'Крем для рук и тела',
     brand: 'LABORATORIUM',
     description: 'Вишневый пирог',
-  },
-])
+  }
+]);
+
+const analysisResult = ref({
+  safetyScore: 89,
+  naturalPercentage: 60,
+  chemicalPercentage: 40,
+  allergens: [],
+  skinTypeRecommendations: ['Для всех типов волос'],
+  usageRecommendations: [
+    'Очищение',
+    'Увлажнение кожи',
+    'Антисептическое действие',
+    'Смягчение кожи',
+    'Успокоение кожи',
+    'Улучшение структуры волос',
+    'Лечение повреждений',
+    'Кондиционирование волос'
+  ],
+  components: [
+    {
+      name: 'Arginine',
+      type: 'действующее вещество',
+      safety: 'Безопасно',
+      benefits: ['Разглаживает волос', 'Хорошо влияет на корни волос'],
+      facts: ['Аминокислота', 'Заживляет', 'Очищает кожу', 'Укрепляет сосуды']
+    },
+    // Добавьте другие компоненты по аналогии
+  ]
+});
+
+const displayedComponents = computed(() => {
+  return showAllComponents.value
+    ? analysisResult.value.components
+    : analysisResult.value.components.slice(0, 3);
+});
+
+const getSafetyColor = (safety) => {
+  if (safety === 'Безопасно') return '#D0F068';
+  if (safety === 'Умеренно') return '#FBA70A';
+  return '#FF6B6B';
+};
+
+onMounted(() => {
+  if (router.currentRoute.value.state?.analysisResult) {
+    analysisResult.value = router.currentRoute.value.state.analysisResult;
+  } else if (router.currentRoute.value.state?.comparisonResult) {
+    const comparison = router.currentRoute.value.state.comparisonResult;
+    analysisResult.value = {
+      ...analysisResult.value,
+      safetyScore: comparison.firstCompositionSafety,
+    };
+  }
+});
 </script>
 
 <style scoped>

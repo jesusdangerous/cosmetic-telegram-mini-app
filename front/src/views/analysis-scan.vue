@@ -16,14 +16,19 @@
           <p>4. Фон нейтральный.</p>
         </div>
       </div>
-      <div  class="buttons">
-        <button>
+      <div class="buttons">
+        <button @click="openGallery">
           <p>Из галереи</p>
           <IconButton><img src="../assets/images/icon-clip.svg"></IconButton>
         </button>
-        <button>
+        <button @click="openCamera">
           <p>Открыть камеру</p>
           <IconButton><img src="../assets/images/icon-scan-black.svg"></IconButton>
+        </button>
+      </div>
+      <div>
+        <button @click="analyzeComposition" :disabled="!imageFile" class="analyze-button">
+          <p>Анализ состава</p>
         </button>
       </div>
       <div>
@@ -31,18 +36,85 @@
           <p>Анализ состава</p>
         </a>
       </div>
-
+      <CameraPreview
+        v-if="showCamera"
+        @captured="handleCapturedImage"
+        @close="showCamera = false"
+      />
     </main>
     <Footer></Footer>
   </div>
 </template>
 
 <script setup>
-  import IconButton from '@/components/UI/IconButton.vue';
-  import Footer from '@/components/Footer.vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import CameraPreview from '@/components/CameraPreview.vue';
+
+const router = useRouter();
+const imageFile = ref(null);
+const showCamera = ref(false);
+
+const openGallery = () => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = (e) => {
+    imageFile.value = e.target.files[0];
+  };
+  input.click();
+};
+
+const openCamera = () => {
+  showCamera.value = true;
+};
+
+const handleCapturedImage = (file) => {
+  imageFile.value = file;
+};
+
+const analyzeComposition = async () => {
+  if (!imageFile.value) return;
+
+  const formData = new FormData();
+  formData.append('file', imageFile.value);
+
+  try {
+    const response = await fetch('/api/analysis/image', {
+      method: 'POST',
+      body: formData
+    });
+    const result = await response.json();
+    router.push({
+      path: '/analysis-result',
+      state: { analysisResult: result }
+    });
+  } catch (error) {
+    console.error('Error analyzing composition:', error);
+    alert('Ошибка при анализе состава');
+  }
+};
 </script>
 
 <style scoped>
+.analyze-button {
+  display: flex;
+  background-color: #131313;
+  justify-content: space-between;
+  padding: 16px 12px;
+  border-radius: 12px;
+  width: 100%;
+  color: #FBFBFB;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+.analyze-button:disabled {
+  background-color: #ADADAD;
+  cursor: not-allowed;
+}
+
   .page-wrapper {
     width: 92%;
     padding: 20px 0;
