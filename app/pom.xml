@@ -83,6 +83,18 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.15.3</version>
 		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.tess4j</groupId>
+			<artifactId>tess4j</artifactId>
+			<version>4.3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
