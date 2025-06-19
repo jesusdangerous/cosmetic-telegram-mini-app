@@ -14,7 +14,7 @@ export default defineConfig({
     ],
     proxy: {
       '/api': {
-        target: 'http://backend:8080',
+        target: 'https://cosmetic-telegram-mini-app-3.onrender.com',
         changeOrigin: true,
         secure: false
       }
