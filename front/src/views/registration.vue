@@ -101,6 +101,10 @@ const handleSubmit = async (e) => {
   width: 92%;
 }
 
+.page-wrapper a {
+  margin-left: 70%;
+}
+
 .main {
   display: flex;
   flex-direction: column;
