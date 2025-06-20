@@ -100,6 +100,10 @@ const handleSubmit = async (e) => {
   justify-content: space-between;
 }
 
+.page-wrapper a {
+  margin-left: 70%;
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -144,7 +148,7 @@ form {
 
 .checkbox-wrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 4px;
 }
 
