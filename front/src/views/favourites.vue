@@ -8,55 +8,37 @@
     </header>
     <main>
       <InputSearch placeholder="Поиск по избранному" />
-      <div class="products-container">
-        <CardMax
-          v-for="product in products"
-          :key="product.name"
-          :product="product"
+      <div v-if="favoritesStore.favorites.length > 0" class="products-container">
+        <CardMini
+          v-for="product in favoritesStore.favorites"
+          :key="product.title"
+          :image="product.image"
+          :alt-text="product.altText"
+          :title="product.title"
+          :brand="product.brand"
+          :description="product.description"
+          :details-link="product.detailsLink"
         />
       </div>
+      <div v-else class="empty-state">
+        <p>В избранном пока ничего нет</p>
+      </div>
     </main>
+    <Footer></Footer>
   </div>
-  <Footer></Footer>
 </template>
 
 <script setup>
-import IconButton from '@/components/UI/IconButton.vue';
-import InputSearch from '@/components/InputSearch.vue';
-import CardMax from '@/components/CardMax.vue';
+import { useFavoritesStore } from '@/stores/favorites'
+import IconButton from '@/components/UI/IconButton.vue'
+import InputSearch from '@/components/InputSearch.vue'
+import CardMini from '@/components/CardMini.vue'
 import Footer from '@/components/Footer.vue'
-// Импорт картинок
-import photoProduct from '/images/photo-product.png';
-import photoProduct2 from '/images/photo-product-2.png'
-const products = [
-  {
-    name: 'Крем для лица',
-    brand: 'The Act с витамином C',
-    safety: 89,
-    ingredients:
-      'Аgua (Water), Caprylic/Capric Triglyceride, Cetearyl Olivate, Sorbitan Olivate, Coco-Caprylate/Caprate, Glyc...',
-    imageUrl: photoProduct,
-    imageAlt: 'Крем для лица The Act'
-  },
-  {
-    name: 'Рассыпчатые румяна для лица',
-    brand: 'Belka mineral',
-    safety: 100,
-    ingredients:
-      'Mica, Boron Nitride, Magnesium Stearate, [+/- Iron Oxides (77492, 77491), Manganese Violet (77742), Tit...',
-    imageUrl: photoProduct2,
-    imageAlt: 'Румяна Belka mineral'
-  }
-];
+
+const favoritesStore = useFavoritesStore()
 </script>
 
 <style scoped>
-
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
 .page-wrapper {
   display: flex;
   flex-direction: column;
@@ -75,7 +57,14 @@ h1 {
 }
 
 .products-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 0;
+  color: #666;
 }
 </style>

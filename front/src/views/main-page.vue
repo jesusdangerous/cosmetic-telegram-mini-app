@@ -13,7 +13,7 @@
 
       <div class="search">
         <InputSearch />
-        <IconButton>
+        <IconButton @click="openParameters">
           <img src="/images/icon-parameters.svg" alt="Параметры" />
         </IconButton>
       </div>
@@ -22,35 +22,35 @@
     <main>
       <h1>Позаботься о своей коже уже сегодня!</h1>
       <article class="actions">
-        <div class="action_check-product">
+        <router-link to="/analysis" class="action_check-product">
           <p>Проверить средство</p>
-          <IconButton href="/analysis" class="icon-arrow">
+          <IconButton class="icon-arrow">
             <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
           </IconButton>
-        </div>
+        </router-link>
 
         <div class="action_other">
-          <div class="action_other-compare">
+          <router-link to="/analysis-compare" class="action_other-compare">
             <p>Сравнить составы</p>
-            <IconButton href="/analysis-compare" class="icon-arrow">
+            <IconButton class="icon-arrow">
               <img src="/images/arrow-right.svg" alt="Иконка стрелочки" />
             </IconButton>
-          </div>
+          </router-link>
 
           <div class="action_other-group">
-            <div class="action_other-card">
+            <router-link to="/experts" class="action_other-card">
               <p>Консультация у эксперта</p>
-              <IconButton href="/experts" class="icon-arrow">
+              <IconButton class="icon-arrow">
                 <img src="/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
-            </div>
+            </router-link>
 
-            <div class="action_other-card">
+            <router-link to="/favourites" class="action_other-card">
               <p>Избранное</p>
-              <IconButton href="/favourites" class="icon-arrow">
+              <IconButton class="icon-arrow">
                 <img src="/images/arrow-right.svg" alt="Иконка стрелочки" />
               </IconButton>
-            </div>
+            </router-link>
           </div>
         </div>
       </article>
@@ -58,19 +58,23 @@
       <article class="experts">
         <div class="block_header">
           <h2>Наши эксперты</h2>
-          <IconButton href="/experts">
-            <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
-          </IconButton>
+          <router-link to="/experts">
+            <IconButton>
+              <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
+            </IconButton>
+          </router-link>
         </div>
         <ul>
           <li>
-            <div class="experts_photo">
-              <p>Врач-дерматолог</p>
-            </div>
-            <div class="experts_info">
-              <p>Дмитрий</p>
-              <span>Стаж работы: 23 года</span>
-            </div>
+            <router-link to="/expert-detail" class="expert-link">
+              <div class="experts_photo">
+                <p>Врач-дерматолог</p>
+              </div>
+              <div class="experts_info">
+                <p>Дмитрий</p>
+                <span>Стаж работы: 23 года</span>
+              </div>
+            </router-link>
           </li>
         </ul>
       </article>
@@ -78,9 +82,11 @@
       <article class="safety">
         <div class="block_header">
           <h2>Безопасная косметика</h2>
-          <IconButton href="/safety-cosmetics">
-            <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
-          </IconButton>
+          <router-link to="/safety-cosmetics">
+            <IconButton>
+              <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
+            </IconButton>
+          </router-link>
         </div>
         <div class="safety-cosmetic">
           <router-link to="/safety-cosmetics-foundation-cream">Тональные крема</router-link>
@@ -97,25 +103,28 @@
       </article>
 
 
-      <article class="memory">
-        <div class="block_header">
-          <h2>Вы проверяли</h2>
-          <IconButton href="/favourites">
-            <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
-          </IconButton>
-        </div>
-        <ul>
-          <li v-for="(product, index) in products" :key="index">
-            <CardMini
-              :image="product.image"
-              :alt="product.alt"
-              :title="product.title"
-              :brand="product.brand"
-              :description="product.description"
-            />
-          </li>
-        </ul>
-      </article>
+       <article class="memory">
+          <div class="block_header">
+            <h2>Вы проверяли</h2>
+            <IconButton @click="$router.push('/favourites')">
+              <img src="/images/arrow-back.svg" alt="Иконка стрелочки" />
+            </IconButton>
+          </div>
+          <ul>
+            <li v-for="(product, index) in products" :key="index">
+              <div class="product-wrapper">
+                <CardMini
+                  :image="product.image"
+                  :alt="product.alt"
+                  :title="product.title"
+                  :brand="product.brand"
+                  :description="product.description"
+                  :detailsLink="product.detailsLink"
+                />
+              </div>
+            </li>
+          </ul>
+        </article>
     </main>
     <Footer></Footer>
   </div>
@@ -133,6 +142,10 @@ import photoProduct from '/images/photo-product.svg'
 const userStore = useUserStore()
 const userName = computed(() => userStore.name || 'Гость')
 
+const openParameters = () => {
+  console.log('Открыть параметры поиска')
+}
+
 const products = [
   {
     id: 'генерируется_автоматически',
@@ -147,6 +160,12 @@ const products = [
 </script>
 
 <style scoped>
+.product-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .page-wrapper {
   width: 92%;
   padding: 20px 15px 160px;
@@ -224,10 +243,6 @@ main h1 {
   gap: 16px;
 }
 
-.action_check-product img {
-  background-color: white;
-  transform: rotate(180deg);
-}
 .action_check-product {
   background-color: rgba(251, 251, 251, 1);
   border-radius: 16px;
@@ -236,6 +251,13 @@ main h1 {
   align-items: center;
   width: 100%;
   padding: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.action_check-product img {
+  background-color: white;
+  transform: rotate(180deg);
 }
 
 .action_check-product p {
@@ -264,6 +286,8 @@ main h1 {
   flex-direction: column;
   justify-content: space-between;
   width: 32%;
+  text-decoration: none;
+  color: inherit;
 }
 
 .action_other-group {
@@ -284,6 +308,8 @@ main h1 {
   margin: 0;
   width: 50%;
 }
+
+
 
 .action_other-card button,
 .action_other-compare button {
@@ -321,7 +347,6 @@ main h1 {
 
 .block_header img {
   transform: rotate(180deg);
-  cursor: pointer;
 }
 
 .experts ul {
@@ -334,10 +359,15 @@ main h1 {
   background-color: rgba(251, 251, 251, 1);
   border-radius: 12px;
   width: 60%;
+}
+
+.expert-link {
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .experts_photo {
@@ -397,6 +427,11 @@ main h1 {
   margin-right: 16px;
   margin-bottom: 16px;
   display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.safety-cosmetic a:hover {
+  background-color: #e0e0e0;
 }
 
 .safety-cosmetic a:last-child {
@@ -427,25 +462,29 @@ main h1 {
   align-items: center;
   box-sizing: border-box;
   width: 53% !important;
-}
-.safety-cosmetic a {
-  color: rgba(19, 19, 19, 1);
   background-color: rgba(251, 251, 251, 1);
-  border-radius: 12px;
-  padding: 8px 12px;
+}
+
+.product-link {
+  display: block;
   text-decoration: none;
-  margin-right: 16px;
-  margin-bottom: 16px;
-  display: inline-block;
-  transition: background-color 0.3s;
+  color: inherit;
+  position: relative;
 }
 
-.safety-cosmetic a:hover {
-  background-color: #e0e0e0;
+/* Общие стили для кликабельных элементов */
+a, button {
+  cursor: pointer;
 }
 
-.safety-cosmetic a:last-child {
-  margin-right: 0;
-  margin-bottom: 0;
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* Улучшение доступности */
+[role="button"] {
+  cursor: pointer;
 }
 </style>

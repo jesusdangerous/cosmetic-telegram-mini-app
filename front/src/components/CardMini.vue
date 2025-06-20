@@ -1,73 +1,119 @@
 <template>
   <div class="product-card">
     <div class="product-btn">
-      <IconButton><img src='/images/icon-like.svg' alt="иконка сердечка"></IconButton>
+      <button
+        class="favorite-btn"
+        @click.stop="toggleFavorite"
+        aria-label="Добавить в избранное"
+      >
+        <img
+          :src="isFavorite ? '/images/trashcan.svg' : '/images/icon-like.svg'"
+          :alt="isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'"
+          class="favorite-icon"
+        >
+      </button>
     </div>
     <div class="product-image">
-      <img :src="image" :alt="altText" />
+      <img :src="image" :alt="altText" class="product-img">
     </div>
     <div class="product-info">
       <h3 class="product-title">{{ title }}</h3>
-      <p class="product-brand">{{ brand }}</p>
-      <p class="product-description">{{ description }}</p>
-      <Button
-        class="details-button"
-        :text="buttonText"
+      <p v-if="brand" class="product-brand">{{ brand }}</p>
+      <p v-if="description" class="product-description">{{ description }}</p>
+      <a
+        v-if="detailsLink"
         :href="detailsLink"
-      />
+        class="details-button"
+        target="_blank"
+        rel="noopener noreferrer"
+        @click.stop
+      >
+        {{ buttonText }}
+      </a>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-import IconButton from './UI/IconButton.vue';
-import Button from './UI/Button.vue';
+import { computed } from 'vue'
+import { useFavoritesStore } from '@/stores/favorites'
 
 const props = defineProps({
   image: {
     type: String,
-    required: true,
+    required: true
   },
   altText: {
     type: String,
-    default: 'Product image',
+    default: 'Product image'
   },
   title: {
     type: String,
-    required: true,
+    required: true
   },
   brand: {
     type: String,
-    default: '', // Сделаем необязательным
+    default: ''
   },
   description: {
     type: String,
-    default: '', // Сделаем необязательным
+    default: ''
   },
   detailsLink: {
     type: String,
-    required: true,
+    default: ''
   },
   buttonText: {
     type: String,
     default: 'Подробнее'
   }
 })
+
+const favoritesStore = useFavoritesStore()
+
+const currentProduct = computed(() => ({
+  title: props.title,
+  image: props.image,
+  altText: props.altText,
+  brand: props.brand,
+  description: props.description,
+  detailsLink: props.detailsLink
+}))
+
+const isFavorite = computed(() => favoritesStore.isFavorite(props.title))
+
+const toggleFavorite = () => {
+  favoritesStore.toggleFavorite(currentProduct.value)
+}
 </script>
 
 <style scoped>
-.product-btn {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .product-card {
+  position: relative;
   border: 1px solid #FBFBFB;
   background-color: #FBFBFB;
   border-radius: 8px;
-  padding: 12px 12px 0;
+  padding: 12px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.favorite-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .product-image img {
@@ -99,5 +145,17 @@ const props = defineProps({
   font-size: 1em;
   margin: 0;
   color: #666;
+}
+
+.details-button {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #6200ee;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.8em;
+  text-align: center;
 }
 </style>
