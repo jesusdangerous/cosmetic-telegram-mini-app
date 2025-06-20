@@ -28,13 +28,10 @@
       </div>
       <div>
         <button @click="analyzeComposition" :disabled="!imageFile" class="analyze-button">
-          <p>Анализ состава</p>
+          <p>
+          Анализ состава
+          </p>
         </button>
-      </div>
-      <div>
-        <a href="/analysis-result">
-          <p>Анализ состава</p>
-        </a>
       </div>
       <CameraPreview
         v-if="showCamera"
@@ -47,10 +44,10 @@
 </template>
 
 <script setup>
+import IconButton from '@/components/UI/IconButton.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import CameraPreview from '@/components/CameraPreview.vue';
-
 const router = useRouter();
 const imageFile = ref(null);
 const showCamera = ref(false);
@@ -98,6 +95,7 @@ const analyzeComposition = async () => {
 
 <style scoped>
 .analyze-button {
+
   display: flex;
   background-color: #131313;
   justify-content: space-between;
@@ -108,6 +106,12 @@ const analyzeComposition = async () => {
   text-align: center;
   border: none;
   cursor: pointer;
+}
+
+.analyze-button p{
+  text-align: center;
+  width: 100%;
+  
 }
 
 .analyze-button:disabled {

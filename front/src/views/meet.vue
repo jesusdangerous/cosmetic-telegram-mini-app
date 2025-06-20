@@ -66,8 +66,7 @@ textarea {
 }
 
 .button-wrapper {
-  display: flex;
-  justify-content: center;
+  display: block;
   margin-top: 16px;
 }
 

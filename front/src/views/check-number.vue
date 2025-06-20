@@ -95,7 +95,7 @@
 
 <style scoped>
   .page-wrapper {
-    width: 100%;
+    width: 92%;
     min-height: 486px;
     display: flex;
     align-items: center;

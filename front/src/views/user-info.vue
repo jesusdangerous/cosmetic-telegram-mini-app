@@ -29,8 +29,8 @@
             <label for="phone">Телефон:</label>
             <input type="tel" id="phone" v-model="phone">
           </div>
-          <div class="birth" v-if="showBirthInput">
-            <h2>Дата рождения</h2>
+          <div class="form-group" v-if="showBirthInput">
+            <label>Дата рождения:</label>
             <Input placeholder="__.__.____" v-model="birthDate"/>
           </div>
           <button type="submit" class="save-btn">Сохранить</button>
@@ -154,14 +154,26 @@ header p {
   margin-bottom: 40px;
 }
 
+.user-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .form-group {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
 }
 
 input {
@@ -189,7 +201,7 @@ input {
 }
 
 .save-link {
-  display: inline-block;
+  display: block;
   margin-top: 20px;
 }
 

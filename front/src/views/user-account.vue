@@ -383,6 +383,9 @@ header h1 {
 
 .clickable-section {
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .name-input {
