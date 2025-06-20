@@ -135,12 +135,14 @@ const userName = computed(() => userStore.name || 'Гость')
 
 const products = [
   {
+    id: 'генерируется_автоматически',
+    title: 'Крем для рук и тела',
     image: photoProduct,
     alt: 'Крем для рук и тела LABORATORIUM Вишневый пирог',
-    title: 'Крем для рук и тела',
     brand: 'LABORATORIUM',
     description: 'Вишневый пирог',
-  },
+    detailsLink: 'https://goldapple.ru/89630300005-visnevyj-pirog?ysclid=mc4boujbi5257013398'
+  }
 ]
 </script>
 
